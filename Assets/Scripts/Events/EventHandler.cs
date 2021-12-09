@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,10 +19,11 @@ public delegate void MovementDelegate(
     bool jumpTrigger,
     bool hurtTrigger,
     bool useToolTrigger,
-    bool useAxetrigger,
+    bool useAxeTrigger,
     bool usePickaxeTrigger,
     bool useHammerTrigger,
-    bool useShovelTrigger
+    bool useShovelTrigger,
+    bool useWateringTrigger
 );
 
 public static class EventHandler
@@ -45,10 +47,11 @@ public static class EventHandler
         bool jumpTrigger,
         bool hurtTrigger,
         bool useToolTrigger,
-        bool useAxetrigger,
+        bool useAxeTrigger,
         bool usePickaxeTrigger,
         bool useHammerTrigger,
-        bool useShovelTrigger
+        bool useShovelTrigger,
+        bool useWateringTrigger
     )
     {
         if (MovementEvent != null)
@@ -70,10 +73,11 @@ public static class EventHandler
                 jumpTrigger,
                 hurtTrigger,
                 useToolTrigger,
-                useAxetrigger,
+                useAxeTrigger,
                 usePickaxeTrigger,
                 useHammerTrigger,
-                useShovelTrigger
+                useShovelTrigger,
+                useWateringTrigger
             );
         }
     }

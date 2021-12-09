@@ -18,6 +18,7 @@ public static class Settings
     public static int usePickaxeTrigger;
     public static int useHammerTrigger;
     public static int useShovelTrigger;
+    public static int useWateringTrigger;
     public static int canAttack;
     public static int canUseTool;
 
@@ -39,6 +40,7 @@ public static class Settings
         usePickaxeTrigger = Animator.StringToHash("usePickaxeTrigger");
         useHammerTrigger = Animator.StringToHash("useHammerTrigger");
         useShovelTrigger = Animator.StringToHash("useShovelTrigger");
+        useWateringTrigger = Animator.StringToHash("useWateringTrigger");
         canAttack = Animator.StringToHash("canAttack");
         canUseTool = Animator.StringToHash("canUseTool");
     }
