@@ -119,7 +119,7 @@ public class Player : SingletonMonoBehaviour<Player>
         if (inputX != 0 || inputY != 0)
         {
             isIdle = false;
-            isWalking = true;
+            isRunning = true;
 
             movementSpeed = playerMovementSettings.walkingSpeed;
 
@@ -142,18 +142,22 @@ public class Player : SingletonMonoBehaviour<Player>
 
     private void PlayerWalkInput()
     {
+        // For now lets just make it always run. Will enable the toggle later
+
         if (isIdle == false)
         {
-            if (isRunning)
-            {
-                isWalking = false;
-                movementSpeed = playerMovementSettings.runningSpeed;
-            }
-            else
-            {
-                isWalking = true;
-                movementSpeed = playerMovementSettings.walkingSpeed;
-            }
+            isRunning = true;
+            movementSpeed = playerMovementSettings.runningSpeed;
+            //if (isRunning)
+            //{
+            //    isWalking = false;
+            //    movementSpeed = playerMovementSettings.runningSpeed;
+            //}
+            //else
+            //{
+            //    isWalking = true;
+            //    movementSpeed = playerMovementSettings.walkingSpeed;
+            //}
         }
     }
 
@@ -260,6 +264,9 @@ public class Player : SingletonMonoBehaviour<Player>
 
     private void InputManager_OnToggleRun()
     {
-        isRunning = !isRunning;
+        // isRunning = !isRunning;
+
+        // Always run for now
+        isRunning = true;
     }
 }
