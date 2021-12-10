@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class InputManager : ScriptableObject, InputActions.IPlayerActions
 {
     public event UnityAction<Vector2> moveEvent;
+    public event UnityAction toggleRunEvent;
     private InputActions inputActions;
 
     private void OnEnable()
@@ -30,6 +31,14 @@ public class InputManager : ScriptableObject, InputActions.IPlayerActions
         if (moveEvent != null)
         {
             moveEvent.Invoke(context.ReadValue<Vector2>());
+        }
+    }
+
+    public void OnRun(InputAction.CallbackContext context)
+    {
+        if (toggleRunEvent != null)
+        {
+            toggleRunEvent.Invoke();
         }
     }
 }

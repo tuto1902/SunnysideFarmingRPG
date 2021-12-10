@@ -48,11 +48,13 @@ public class Player : SingletonMonoBehaviour<Player>
         mainCamera = Camera.main;
 
         inputManager.moveEvent += InputManager_OnMoveEvent;
+        inputManager.toggleRunEvent += InputManager_OnToggleRun;
     }
 
     private void OnDestroy()
     {
         inputManager.moveEvent -= InputManager_OnMoveEvent;
+        inputManager.toggleRunEvent -= InputManager_OnToggleRun;
     }
 
     private void Start()
@@ -68,6 +70,7 @@ public class Player : SingletonMonoBehaviour<Player>
         {
             ResetAnimationTriggers();
             PlayerMovementInput();
+            PlayerWalkInput();
             PlayerFacingDirection();
 
             EventHandler.CallMovementEvent(
@@ -116,9 +119,9 @@ public class Player : SingletonMonoBehaviour<Player>
         if (inputX != 0 || inputY != 0)
         {
             isIdle = false;
-            isRunning = true;
+            isWalking = true;
 
-            movementSpeed = playerMovementSettings.runningSpeed;
+            movementSpeed = playerMovementSettings.walkingSpeed;
 
             if (inputX < 0)
             {
@@ -134,6 +137,23 @@ public class Player : SingletonMonoBehaviour<Player>
             isIdle = true;
             isWalking = false;
             isRunning = false;
+        }
+    }
+
+    private void PlayerWalkInput()
+    {
+        if (isIdle == false)
+        {
+            if (isRunning)
+            {
+                isWalking = false;
+                movementSpeed = playerMovementSettings.runningSpeed;
+            }
+            else
+            {
+                isWalking = true;
+                movementSpeed = playerMovementSettings.walkingSpeed;
+            }
         }
     }
 
@@ -236,5 +256,10 @@ public class Player : SingletonMonoBehaviour<Player>
     {
         inputX = movementInput.x;
         inputY = movementInput.y;
+    }
+
+    private void InputManager_OnToggleRun()
+    {
+        isRunning = !isRunning;
     }
 }
