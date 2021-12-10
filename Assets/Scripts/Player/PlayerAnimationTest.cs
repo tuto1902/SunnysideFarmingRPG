@@ -9,12 +9,9 @@ public class PlayerAnimationTest : MonoBehaviour
     public bool isIdle;
     public bool isWalking;
     public bool isRunning;
-    public bool isInteracting;
     public bool isWatering;
     public bool isUsingHands;
     public bool isDead;
-    public bool canAttack;
-    public bool canUseTool;
     public bool attackTrigger;
     public bool rollTrigger;
     public bool jumpTrigger;
@@ -24,7 +21,6 @@ public class PlayerAnimationTest : MonoBehaviour
     public bool usePickaxeTrigger;
     public bool useHammerTrigger;
     public bool useShovelTrigger;
-    public bool useWateringTrigger;
 
 
     // Start is called before the first frame update
@@ -75,7 +71,7 @@ public class PlayerAnimationTest : MonoBehaviour
             isIdle = true;
         }
 
-        EventHandler.CallMovementEvent(inputX, inputY, isIdle, isWalking, isRunning, isInteracting, isWatering, isUsingHands, isDead, canAttack, canUseTool, attackTrigger, rollTrigger, jumpTrigger, hurtTrigger, useToolTrigger, useAxeTrigger, usePickaxeTrigger, useHammerTrigger, useShovelTrigger, useWateringTrigger);
+        EventHandler.CallMovementEvent(inputX, inputY, isIdle, isWalking, isRunning, isWatering, isUsingHands, isDead, attackTrigger, rollTrigger, jumpTrigger, hurtTrigger, useToolTrigger, useAxeTrigger, usePickaxeTrigger, useHammerTrigger, useShovelTrigger);
 
         ResetAnimationParameters();
     }
@@ -109,12 +105,6 @@ public class PlayerAnimationTest : MonoBehaviour
         {
             //useToolTrigger = false;
             useShovelTrigger = false;
-        }
-
-        if (useToolTrigger && useWateringTrigger)
-        {
-            //useToolTrigger = false;
-            useWateringTrigger = false;
         }
 
         isDead = false;

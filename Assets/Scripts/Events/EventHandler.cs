@@ -8,12 +8,9 @@ public delegate void MovementDelegate(
     bool isIdle,
     bool isWalking,
     bool isRunning,
-    bool isInteracting,
     bool isWatering,
     bool isUsingHands,
     bool isDead,
-    bool canAttack,
-    bool canUseTool,
     bool attackTrigger,
     bool rollTrigger,
     bool jumpTrigger,
@@ -22,8 +19,7 @@ public delegate void MovementDelegate(
     bool useAxeTrigger,
     bool usePickaxeTrigger,
     bool useHammerTrigger,
-    bool useShovelTrigger,
-    bool useWateringTrigger
+    bool useShovelTrigger
 );
 
 public static class EventHandler
@@ -36,12 +32,9 @@ public static class EventHandler
         bool isIdle,
         bool isWalking,
         bool isRunning,
-        bool isInteracting,
         bool isWatering,
         bool isUsingHands,
         bool isDead,
-        bool canAttack,
-        bool canUseTool,
         bool attackTrigger,
         bool rollTrigger,
         bool jumpTrigger,
@@ -50,8 +43,7 @@ public static class EventHandler
         bool useAxeTrigger,
         bool usePickaxeTrigger,
         bool useHammerTrigger,
-        bool useShovelTrigger,
-        bool useWateringTrigger
+        bool useShovelTrigger
     )
     {
         if (MovementEvent != null)
@@ -62,12 +54,9 @@ public static class EventHandler
                 isIdle,
                 isWalking,
                 isRunning,
-                isInteracting,
                 isWatering,
                 isUsingHands,
                 isDead,
-                canAttack,
-                canUseTool,
                 attackTrigger,
                 rollTrigger,
                 jumpTrigger,
@@ -76,8 +65,7 @@ public static class EventHandler
                 useAxeTrigger,
                 usePickaxeTrigger,
                 useHammerTrigger,
-                useShovelTrigger,
-                useWateringTrigger
+                useShovelTrigger
             );
         }
     }
