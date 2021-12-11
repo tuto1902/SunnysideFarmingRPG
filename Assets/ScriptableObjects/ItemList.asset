@@ -1,0 +1,127 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71fa7c8a3c6e14826a528d61f30de600, type: 3}
+  m_Name: ItemList
+  m_EditorClassIdentifier: 
+  itemDetailsList:
+  - itemCode: 1000
+    itemType: 2
+    itemDescription: Sword
+    itemSprite: {fileID: 21300000, guid: d28783adee46c4b30a03bc8e69349e28, type: 3}
+    itemLongDescription: Use it to kill goblings and skeletons. Also good for cutting
+      grass and wheat. A very versatile tool indeed
+    itemUseGridRadius: 0
+    itemUseRadius: 2
+    isStartingItem: 1
+    canBePickedUp: 0
+    canBeDropped: 0
+    canBeEaten: 0
+    canBeCarried: 0
+  - itemCode: 1001
+    itemType: 5
+    itemDescription: Axe
+    itemSprite: {fileID: 21300000, guid: fd985cc2b4c804e8f9ab92ac8737a887, type: 3}
+    itemLongDescription: Use it to kill trees and collect wood. Don't worry, they
+      will grow back.
+    itemUseGridRadius: 1
+    itemUseRadius: 0
+    isStartingItem: 0
+    canBePickedUp: 1
+    canBeDropped: 0
+    canBeEaten: 0
+    canBeCarried: 0
+  - itemCode: 1002
+    itemType: 6
+    itemDescription: Pickaxe
+    itemSprite: {fileID: 21300000, guid: 1aa7977fe0e3c4293bd7077ada60bf37, type: 3}
+    itemLongDescription: Use it to kill rocks and collect stone. They are not technically
+      alive.
+    itemUseGridRadius: 1
+    itemUseRadius: 0
+    isStartingItem: 0
+    canBePickedUp: 1
+    canBeDropped: 0
+    canBeEaten: 0
+    canBeCarried: 0
+  - itemCode: 1003
+    itemType: 4
+    itemDescription: Shovel
+    itemSprite: {fileID: 21300000, guid: 8b8328feeedfc420e8f1d9f4fe605b4f, type: 3}
+    itemLongDescription: Use it to dig up holes and sometimes treasure. No, you can
+      use it as a weapon. Who would do that?
+    itemUseGridRadius: 1
+    itemUseRadius: 0
+    isStartingItem: 0
+    canBePickedUp: 1
+    canBeDropped: 0
+    canBeEaten: 0
+    canBeCarried: 0
+  - itemCode: 1004
+    itemType: 8
+    itemDescription: Hammer
+    itemSprite: {fileID: 21300000, guid: 7f204e712599d4b41b9558fee13c6ef9, type: 3}
+    itemLongDescription: Use it to build things.Watch those fingers!
+    itemUseGridRadius: 1
+    itemUseRadius: 0
+    isStartingItem: 0
+    canBePickedUp: 1
+    canBeDropped: 0
+    canBeEaten: 0
+    canBeCarried: 0
+  - itemCode: 1005
+    itemType: 7
+    itemDescription: Basket
+    itemSprite: {fileID: 21300000, guid: a651480b461084f489aa5753a73c7475, type: 3}
+    itemLongDescription: Use it to collect fruit. Stay healthy.
+    itemUseGridRadius: 1
+    itemUseRadius: 0
+    isStartingItem: 0
+    canBePickedUp: 1
+    canBeDropped: 0
+    canBeEaten: 0
+    canBeCarried: 0
+  - itemCode: 1006
+    itemType: 3
+    itemDescription: Watering Can
+    itemSprite: {fileID: 21300000, guid: ffd820512486d42ba89f167e370c654b, type: 3}
+    itemLongDescription: Use it to water the crops so they can grow faster.
+    itemUseGridRadius: 1
+    itemUseRadius: 0
+    isStartingItem: 0
+    canBePickedUp: 1
+    canBeDropped: 0
+    canBeEaten: 0
+    canBeCarried: 0
+  - itemCode: 1007
+    itemType: 1
+    itemDescription: Wood
+    itemSprite: {fileID: 21300000, guid: 1408b39c8b7d548d896ab9050311ae3c, type: 3}
+    itemLongDescription: Use it to build wooden fences. Or sell it for a few coins.
+    itemUseGridRadius: 0
+    itemUseRadius: 0
+    isStartingItem: 0
+    canBePickedUp: 1
+    canBeDropped: 1
+    canBeEaten: 0
+    canBeCarried: 1
+  - itemCode: 1008
+    itemType: 1
+    itemDescription: Parsnip
+    itemSprite: {fileID: 21300000, guid: e075923e3d21a41588e1903ed885c7db, type: 3}
+    itemLongDescription: Sell it for coins. You can also eat to recover some health.
+    itemUseGridRadius: 0
+    itemUseRadius: 0
+    isStartingItem: 0
+    canBePickedUp: 1
+    canBeDropped: 1
+    canBeEaten: 1
+    canBeCarried: 1
