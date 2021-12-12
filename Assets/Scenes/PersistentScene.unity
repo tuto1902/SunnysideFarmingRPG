@@ -573,28 +573,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 467255458}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcb7fddcc0b6e4691a0904113b474645, type: 3}
+  m_Script: {fileID: 11500000, guid: d308c0a03ce1e486a8a19d10f8652bb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputX: 0
-  inputY: 0
-  isIdle: 0
-  isWalking: 0
-  isRunning: 0
-  isWatering: 0
-  isUsingHands: 0
-  isDead: 0
-  attackTrigger: 0
-  rollTrigger: 0
-  jumpTrigger: 0
-  hurtTrigger: 0
-  useToolTrigger: 0
-  useAxeTrigger: 0
-  usePickaxeTrigger: 0
-  useHammerTrigger: 0
-  useShovelTrigger: 0
 --- !u!114 &467255465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1088,3 +1071,47 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &2071369584
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2071369586}
+  - component: {fileID: 2071369585}
+  m_Layer: 0
+  m_Name: InventoryManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2071369585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2071369584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 193f1d54dbda54bb6b8ed6f48d3aa4c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemList: {fileID: 11400000, guid: 62b162600f781422698f610eb9c2d80c, type: 2}
+--- !u!4 &2071369586
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2071369584}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
