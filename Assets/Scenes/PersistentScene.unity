@@ -1101,6 +1101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemList: {fileID: 11400000, guid: 62b162600f781422698f610eb9c2d80c, type: 2}
+  playerInventorySettings: {fileID: 11400000, guid: 9a99d59f2a9fe45109463b2bd008d038, type: 2}
+  inventoryListCapacity: 
 --- !u!4 &2071369586
 Transform:
   m_ObjectHideFlags: 0

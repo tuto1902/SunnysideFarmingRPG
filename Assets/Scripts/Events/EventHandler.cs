@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 public delegate void MovementDelegate(
     float inputX,
@@ -25,6 +24,8 @@ public delegate void MovementDelegate(
 public static class EventHandler
 {
     public static event MovementDelegate MovementEvent;
+
+    public static event Action<InventoryLocation, List<InventoryItem>> InventoryUpdatedEvent;
 
     public static void CallMovementEvent(
         float inputX,
@@ -67,6 +68,14 @@ public static class EventHandler
                 useHammerTrigger,
                 useShovelTrigger
             );
+        }
+    }
+
+    public static void CallInventoryUpdatedEvent(InventoryLocation inventoryLocation, List<InventoryItem> inventoryList)
+    {
+        if (InventoryUpdatedEvent != null)
+        {
+            InventoryUpdatedEvent(inventoryLocation, inventoryList);
         }
     }
 }

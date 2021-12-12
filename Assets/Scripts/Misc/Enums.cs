@@ -1,3 +1,10 @@
+public enum InventoryLocation
+{
+    Player,
+    Chest,
+    count
+}
+
 public enum PlayerDirection
 {
     Left,
