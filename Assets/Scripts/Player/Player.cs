@@ -251,7 +251,7 @@ public class Player : SingletonMonoBehaviour<Player>
             );
     }
 
-    public Vector3 GetPlayerViewportposition()
+    public Vector3 GetPlayerViewportPosition()
     {
         return mainCamera.WorldToViewportPoint(transform.position);
     }
