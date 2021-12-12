@@ -105,7 +105,7 @@ public class GamepadCursor : MonoBehaviour
 
     private void OnDisable()
     {
-        playerInput.user.UnpairDevice(virtualMouse);
+        //playerInput.user.UnpairDevice(virtualMouse);
         InputSystem.RemoveDevice(virtualMouse);
         InputSystem.onAfterUpdate -= UpdateMotion;
         playerInput.onControlsChanged -= OnControlsChanged;
