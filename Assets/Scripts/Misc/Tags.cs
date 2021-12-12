@@ -2,5 +2,6 @@
 
 public static class Tags
 {
-    public static string BoundsConfiner = "BoundsConfiner";
+    public const string BoundsConfiner = "BoundsConfiner";
+    public const string ItemsParent = "ItemsParent";
 }
