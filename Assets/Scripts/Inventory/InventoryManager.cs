@@ -77,6 +77,20 @@ public class InventoryManager : SingletonMonoBehaviour<InventoryManager>
         Destroy(itemGameObject);
     }
 
+    public void SwapInventoryItems(InventoryLocation inventoryLocation, int fromSlot, int toSlot)
+    {
+        if (fromSlot < inventoryLists[(int)inventoryLocation].Count && toSlot < inventoryLists[(int)inventoryLocation].Count && fromSlot != toSlot && fromSlot >= 0 && toSlot >= 0)
+        {
+            InventoryItem fromItem = inventoryLists[(int)inventoryLocation][fromSlot];
+            InventoryItem toItem = inventoryLists[(int)inventoryLocation][toSlot];
+
+            inventoryLists[(int)inventoryLocation][fromSlot] = toItem;
+            inventoryLists[(int)inventoryLocation][toSlot] = fromItem;
+
+            EventHandler.CallInventoryUpdatedEvent(inventoryLocation, inventoryLists[(int)inventoryLocation]);
+        }
+    }
+
     private int FindItemInInventory(InventoryLocation inventoryLocation, int itemCode)
     {
         List<InventoryItem> inventoryList = inventoryLists[(int)inventoryLocation];
