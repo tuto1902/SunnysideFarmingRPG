@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1062217271}
     m_Modifications:
+    - target: {fileID: 409084530689100501, guid: 6117c5f16428346de8691025568a01ce, type: 3}
+      propertyPath: inventoryBar
+      value: 
+      objectReference: {fileID: 1062217272}
     - target: {fileID: 1739830803315916180, guid: 6117c5f16428346de8691025568a01ce, type: 3}
       propertyPath: m_Name
       value: InventorySlot5
@@ -243,6 +247,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1062217271}
     m_Modifications:
+    - target: {fileID: 409084530689100501, guid: 6117c5f16428346de8691025568a01ce, type: 3}
+      propertyPath: inventoryBar
+      value: 
+      objectReference: {fileID: 1062217272}
     - target: {fileID: 1739830803315916180, guid: 6117c5f16428346de8691025568a01ce, type: 3}
       propertyPath: m_Name
       value: InventorySlot11
@@ -804,7 +812,7 @@ GameObject:
   - component: {fileID: 320266732}
   m_Layer: 0
   m_Name: GamepadCursor
-  m_TagString: Untagged
+  m_TagString: GamepadCursor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -823,9 +831,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInput: {fileID: 320266733}
   cursorTransform: {fileID: 918419706}
+  cursorImage: {fileID: 918419707}
   cursorSpeed: 900
   canvasRectTransform: {fileID: 161015167}
   padding: 11
+  faderSettings: {fileID: 11400000, guid: 63185b9ecdfa8493bae195a19ec9616b, type: 2}
 --- !u!114 &320266733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -852,7 +862,7 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: UI
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 1891820205}
@@ -877,6 +887,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1062217271}
     m_Modifications:
+    - target: {fileID: 409084530689100501, guid: 6117c5f16428346de8691025568a01ce, type: 3}
+      propertyPath: inventoryBar
+      value: 
+      objectReference: {fileID: 1062217272}
     - target: {fileID: 1739830803315916180, guid: 6117c5f16428346de8691025568a01ce, type: 3}
       propertyPath: m_Name
       value: InventorySlot6
@@ -1712,6 +1726,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1062217271}
     m_Modifications:
+    - target: {fileID: 409084530689100501, guid: 6117c5f16428346de8691025568a01ce, type: 3}
+      propertyPath: inventoryBar
+      value: 
+      objectReference: {fileID: 1062217272}
     - target: {fileID: 1739830803315916180, guid: 6117c5f16428346de8691025568a01ce, type: 3}
       propertyPath: m_Name
       value: InventorySlot8
@@ -1825,6 +1843,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1062217271}
     m_Modifications:
+    - target: {fileID: 409084530689100501, guid: 6117c5f16428346de8691025568a01ce, type: 3}
+      propertyPath: inventoryBar
+      value: 
+      objectReference: {fileID: 1062217272}
     - target: {fileID: 1739830803315916180, guid: 6117c5f16428346de8691025568a01ce, type: 3}
       propertyPath: m_Name
       value: InventorySlot2
@@ -1938,6 +1960,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1062217271}
     m_Modifications:
+    - target: {fileID: 409084530689100501, guid: 6117c5f16428346de8691025568a01ce, type: 3}
+      propertyPath: inventoryBar
+      value: 
+      objectReference: {fileID: 1062217272}
     - target: {fileID: 1739830803315916180, guid: 6117c5f16428346de8691025568a01ce, type: 3}
       propertyPath: m_Name
       value: InventorySlot10
@@ -2051,6 +2077,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1062217271}
     m_Modifications:
+    - target: {fileID: 409084530689100501, guid: 6117c5f16428346de8691025568a01ce, type: 3}
+      propertyPath: inventoryBar
+      value: 
+      objectReference: {fileID: 1062217272}
     - target: {fileID: 1739830803315916180, guid: 6117c5f16428346de8691025568a01ce, type: 3}
       propertyPath: m_Name
       value: InventorySlot3
@@ -2164,6 +2194,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1062217271}
     m_Modifications:
+    - target: {fileID: 409084530689100501, guid: 6117c5f16428346de8691025568a01ce, type: 3}
+      propertyPath: inventoryBar
+      value: 
+      objectReference: {fileID: 1062217272}
     - target: {fileID: 1739830803315916180, guid: 6117c5f16428346de8691025568a01ce, type: 3}
       propertyPath: m_Name
       value: InventorySlot9
@@ -2308,6 +2342,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1062217271}
     m_Modifications:
+    - target: {fileID: 409084530689100501, guid: 6117c5f16428346de8691025568a01ce, type: 3}
+      propertyPath: inventoryBar
+      value: 
+      objectReference: {fileID: 1062217272}
     - target: {fileID: 1739830803315916180, guid: 6117c5f16428346de8691025568a01ce, type: 3}
       propertyPath: m_Name
       value: InventorySlot1
@@ -2421,6 +2459,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1062217271}
     m_Modifications:
+    - target: {fileID: 409084530689100501, guid: 6117c5f16428346de8691025568a01ce, type: 3}
+      propertyPath: inventoryBar
+      value: 
+      objectReference: {fileID: 1062217272}
     - target: {fileID: 1739830803315916180, guid: 6117c5f16428346de8691025568a01ce, type: 3}
       propertyPath: m_Name
       value: InventorySlot4
@@ -2793,6 +2835,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1062217271}
     m_Modifications:
+    - target: {fileID: 409084530689100501, guid: 6117c5f16428346de8691025568a01ce, type: 3}
+      propertyPath: inventoryBar
+      value: 
+      objectReference: {fileID: 1062217272}
     - target: {fileID: 1739830803315916180, guid: 6117c5f16428346de8691025568a01ce, type: 3}
       propertyPath: m_Name
       value: InventorySlot0
@@ -2906,6 +2952,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1062217271}
     m_Modifications:
+    - target: {fileID: 409084530689100501, guid: 6117c5f16428346de8691025568a01ce, type: 3}
+      propertyPath: inventoryBar
+      value: 
+      objectReference: {fileID: 1062217272}
     - target: {fileID: 1739830803315916180, guid: 6117c5f16428346de8691025568a01ce, type: 3}
       propertyPath: m_Name
       value: InventorySlot7

@@ -2,28 +2,44 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.InputSystem.Users;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
 using System;
 
-public class GamepadCursor : MonoBehaviour
+public class GamepadCursor : SingletonMonoBehaviour<GamepadCursor>
 {
     private Mouse virtualMouse;
-    private Mouse currentMouse;
 
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private RectTransform cursorTransform;
-    [SerializeField] private float cursorSpeed = 1000f;
+    [SerializeField] private Image cursorImage;
+    [SerializeField] private float cursorSpeed = 900f;
     [SerializeField] private RectTransform canvasRectTransform;
     [SerializeField] private float padding = 35f;
+    [SerializeField] private ItemFaderSettings faderSettings;
 
     private bool previousMouseState;
-    private string previousControlScheme = "";
-    private const string gamepadScheme = "Gamepad";
-    private const string mouseScheme = "Keyboard&Mouse";
+    private Vector2 deltaValue;
+    private float fadeOutTimer;
+    private bool isVisible = true;
+
+    private bool _canFadeOut = true;
+    private string _currentControlScheme;
+
+    public bool CanFadeOut
+    {
+        get => _canFadeOut;
+        set => _canFadeOut = value;
+    }
+
+    public string CurrentControlScheme
+    {
+        get => _currentControlScheme;
+        private set => _currentControlScheme = value;
+    }
 
     private void OnEnable()
     {
-        currentMouse = Mouse.current;
-
         if (virtualMouse == null)
         {
             virtualMouse = (Mouse)InputSystem.AddDevice("VirtualMouse");
@@ -41,8 +57,27 @@ public class GamepadCursor : MonoBehaviour
             InputState.Change(virtualMouse.position, cursorPosition);
         }
 
+        CurrentControlScheme = playerInput.currentControlScheme;
+
         InputSystem.onAfterUpdate += UpdateMotion;
-        playerInput.onControlsChanged += OnControlsChanged;
+        playerInput.onControlsChanged -= OnControlsChanged;
+    }
+
+    private void OnControlsChanged(PlayerInput playerInput)
+    {
+        CurrentControlScheme = playerInput.currentControlScheme;
+    }
+
+    private void OnDisable()
+    {
+        InputSystem.RemoveDevice(virtualMouse);
+        InputSystem.onAfterUpdate -= UpdateMotion;
+        playerInput.onControlsChanged -= OnControlsChanged;
+    }
+
+    public Vector2 GetVirtualMousePosition()
+    {
+        return virtualMouse.position.ReadValue();
     }
 
     private void UpdateMotion()
@@ -52,8 +87,32 @@ public class GamepadCursor : MonoBehaviour
             return;
         }
 
-        Vector2 deltaValue = Gamepad.current.rightStick.ReadValue();
+        deltaValue = Gamepad.current.rightStick.ReadValue();
         deltaValue *= cursorSpeed * Time.deltaTime;
+
+        if (deltaValue != Vector2.zero && isVisible == false)
+        {
+            FadeIn();
+        }
+
+        if (deltaValue == Vector2.zero)
+        {
+            if (fadeOutTimer > 0 && CanFadeOut)
+            {
+                fadeOutTimer -= Time.deltaTime;
+            }
+            else
+            {
+                if (CanFadeOut && isVisible == true)
+                {
+                    FadeOut();
+                }
+            }
+        }
+        else
+        {
+            fadeOutTimer = 1f;
+        }
 
         Vector2 currentPosition = virtualMouse.position.ReadValue();
         Vector2 newPosition = currentPosition + deltaValue;
@@ -64,7 +123,7 @@ public class GamepadCursor : MonoBehaviour
         InputState.Change(virtualMouse.position, newPosition);
         InputState.Change(virtualMouse.delta, deltaValue);
 
-        bool buttonSouthPressed = Gamepad.current.buttonSouth.IsPressed();
+        bool buttonSouthPressed = Gamepad.current.rightShoulder.IsPressed();
         if (previousMouseState != buttonSouthPressed)
         {
             virtualMouse.CopyState<MouseState>(out var mouseState);
@@ -74,6 +133,7 @@ public class GamepadCursor : MonoBehaviour
         }
 
         MoveCursor(newPosition);
+        deltaValue = Vector2.zero;
     }
 
     private void MoveCursor(Vector2 newPosition)
@@ -83,42 +143,45 @@ public class GamepadCursor : MonoBehaviour
         cursorTransform.anchoredPosition = anchoredPosition;
     }
 
-    private void OnControlsChanged(PlayerInput input)
+    private void FadeOut()
     {
-        if (input.currentControlScheme == mouseScheme && previousControlScheme != mouseScheme)
-        {
-            cursorTransform.gameObject.SetActive(false);
-            Cursor.visible = true;
-            Vector2 mousePosition = virtualMouse.position.ReadValue();
-            currentMouse.WarpCursorPosition(mousePosition);
-            previousControlScheme = mouseScheme;
-        }
-        else if (input.currentControlScheme == gamepadScheme && previousControlScheme != gamepadScheme)
-        {
-            cursorTransform.gameObject.SetActive(true);
-            Cursor.visible = false;
-            InputState.Change(virtualMouse.position, currentMouse.position.ReadValue());
-            MoveCursor(currentMouse.position.ReadValue());
-            previousControlScheme = gamepadScheme;
-        }
+        StartCoroutine(FadeOutCoroutine());
     }
 
-    private void OnDisable()
+    private void FadeIn()
     {
-        //playerInput.user.UnpairDevice(virtualMouse);
-        InputSystem.RemoveDevice(virtualMouse);
-        InputSystem.onAfterUpdate -= UpdateMotion;
-        playerInput.onControlsChanged -= OnControlsChanged;
+        StartCoroutine(FadeInCoroutine());
     }
 
-    private void Update()
+    private IEnumerator FadeOutCoroutine()
     {
-        //if (playerInput.currentControlScheme != previousControlScheme)
-        //{
-        //    OnControlsChanged(playerInput);
-        //}
+        float currentAlpha = cursorImage.color.a;
+        float distance = currentAlpha - faderSettings.targetAlpha;
 
-        //previousControlScheme = playerInput.currentControlScheme;
+        while (currentAlpha - faderSettings.targetAlpha > 0.01f)
+        {
+            currentAlpha = currentAlpha - distance / faderSettings.fadeOutSeconds * Time.deltaTime;
+            cursorImage.color = new Color(1, 1, 1, currentAlpha);
+            yield return null;
+        }
 
+        cursorImage.color = new Color(1, 1, 1, faderSettings.targetAlpha);
+        isVisible = false;
+    }
+
+    private IEnumerator FadeInCoroutine()
+    {
+        float currentAlpha = cursorImage.color.a;
+        float distance = 1 - currentAlpha;
+
+        while (1 - currentAlpha > 0.01f)
+        {
+            currentAlpha = currentAlpha + distance / faderSettings.fadeInSeconds * Time.deltaTime;
+            cursorImage.color = new Color(1, 1, 1, currentAlpha);
+            yield return null;
+        }
+
+        cursorImage.color = new Color(1, 1, 1, 1);
+        isVisible = true;
     }
 }

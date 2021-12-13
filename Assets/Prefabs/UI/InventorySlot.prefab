@@ -254,6 +254,9 @@ MonoBehaviour:
     canBeEaten: 0
     canBeCarried: 0
   itemQuantity: 0
+  playerInput: {fileID: 0}
+  inventoryBar: {fileID: 0}
+  itemPrefab: {fileID: 4100777990994897815, guid: 06c27e136256942389288d9fd44a0993, type: 3}
 --- !u!1 &3363362397837817832
 GameObject:
   m_ObjectHideFlags: 0
