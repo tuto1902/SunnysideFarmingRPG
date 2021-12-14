@@ -11,6 +11,8 @@ public class InventoryBar : MonoBehaviour
     private RectTransform rectTransform;
     private bool _isInventoryBarAtBottom = true;
 
+    [HideInInspector] public GameObject inventoryTextBoxGameObject;
+
     public bool IsInventoryBarAtBottom
     {
         get => _isInventoryBarAtBottom;

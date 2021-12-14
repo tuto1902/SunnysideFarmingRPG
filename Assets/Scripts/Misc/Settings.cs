@@ -22,6 +22,14 @@ public static class Settings
     public static int canAttack;
     public static int canUseTool;
 
+    public static string WateringTool = "Watering Can";
+    public static string DiggingTool = "Shovel";
+    public static string ChoppingTool = "Axe";
+    public static string BreakingTool = "Pickaxe";
+    public static string CollectingTool = "Basket";
+    public static string BuildingTool = "Hammer";
+    public static string Weapon = "Sword";
+
     static Settings()
     {
         isIdle = Animator.StringToHash("isIdle");

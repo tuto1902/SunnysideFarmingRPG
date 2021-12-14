@@ -91,6 +91,40 @@ public class InventoryManager : SingletonMonoBehaviour<InventoryManager>
         }
     }
 
+    public string GetItemTypeDescription(ItemType itemType)
+    {
+        string itemTypeDescription;
+        switch (itemType)
+        {
+            case ItemType.BreakingTool:
+                itemTypeDescription = Settings.BreakingTool;
+                break;
+            case ItemType.BuildingTool:
+                itemTypeDescription = Settings.BuildingTool;
+                break;
+            case ItemType.ChoppingTool:
+                itemTypeDescription = Settings.ChoppingTool;
+                break;
+            case ItemType.CollectingTool:
+                itemTypeDescription = Settings.CollectingTool;
+                break;
+            case ItemType.WateringTool:
+                itemTypeDescription = Settings.WateringTool;
+                break;
+            case ItemType.DiggingTool:
+                itemTypeDescription = Settings.DiggingTool;
+                break;
+            case ItemType.Weapon:
+                itemTypeDescription = Settings.Weapon;
+                break;
+            default:
+                itemTypeDescription = itemType.ToString();
+                break;
+        }
+
+        return itemTypeDescription;
+    }
+
     private int FindItemInInventory(InventoryLocation inventoryLocation, int itemCode)
     {
         List<InventoryItem> inventoryList = inventoryLists[(int)inventoryLocation];

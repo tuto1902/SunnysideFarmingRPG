@@ -138,6 +138,10 @@ PrefabInstance:
       propertyPath: inventoryBar
       value: 
       objectReference: {fileID: 1062217272}
+    - target: {fileID: 409084530689100501, guid: 6117c5f16428346de8691025568a01ce, type: 3}
+      propertyPath: inventoryTextBoxPrefab
+      value: 
+      objectReference: {fileID: 8195582176351016027, guid: 820c8c99e103b4e7f906e438ef271305, type: 3}
     - target: {fileID: 1739830803315916180, guid: 6117c5f16428346de8691025568a01ce, type: 3}
       propertyPath: m_Name
       value: InventorySlot5
@@ -259,6 +263,10 @@ PrefabInstance:
       propertyPath: inventoryBar
       value: 
       objectReference: {fileID: 1062217272}
+    - target: {fileID: 409084530689100501, guid: 6117c5f16428346de8691025568a01ce, type: 3}
+      propertyPath: inventoryTextBoxPrefab
+      value: 
+      objectReference: {fileID: 8195582176351016027, guid: 820c8c99e103b4e7f906e438ef271305, type: 3}
     - target: {fileID: 1739830803315916180, guid: 6117c5f16428346de8691025568a01ce, type: 3}
       propertyPath: m_Name
       value: InventorySlot11
@@ -903,6 +911,10 @@ PrefabInstance:
       propertyPath: inventoryBar
       value: 
       objectReference: {fileID: 1062217272}
+    - target: {fileID: 409084530689100501, guid: 6117c5f16428346de8691025568a01ce, type: 3}
+      propertyPath: inventoryTextBoxPrefab
+      value: 
+      objectReference: {fileID: 8195582176351016027, guid: 820c8c99e103b4e7f906e438ef271305, type: 3}
     - target: {fileID: 1739830803315916180, guid: 6117c5f16428346de8691025568a01ce, type: 3}
       propertyPath: m_Name
       value: InventorySlot6
@@ -1546,6 +1558,7 @@ MonoBehaviour:
   - {fileID: 1526704691}
   - {fileID: 1467477567}
   - {fileID: 9922629}
+  inventoryTextBoxGameObject: {fileID: 0}
   draggedItem: {fileID: 5587486758164496084, guid: be04749ea25304bf89b14d1d56e4d801, type: 3}
 --- !u!114 &1062217273
 MonoBehaviour:
@@ -1746,6 +1759,10 @@ PrefabInstance:
       propertyPath: inventoryBar
       value: 
       objectReference: {fileID: 1062217272}
+    - target: {fileID: 409084530689100501, guid: 6117c5f16428346de8691025568a01ce, type: 3}
+      propertyPath: inventoryTextBoxPrefab
+      value: 
+      objectReference: {fileID: 8195582176351016027, guid: 820c8c99e103b4e7f906e438ef271305, type: 3}
     - target: {fileID: 1739830803315916180, guid: 6117c5f16428346de8691025568a01ce, type: 3}
       propertyPath: m_Name
       value: InventorySlot8
@@ -1867,6 +1884,10 @@ PrefabInstance:
       propertyPath: inventoryBar
       value: 
       objectReference: {fileID: 1062217272}
+    - target: {fileID: 409084530689100501, guid: 6117c5f16428346de8691025568a01ce, type: 3}
+      propertyPath: inventoryTextBoxPrefab
+      value: 
+      objectReference: {fileID: 8195582176351016027, guid: 820c8c99e103b4e7f906e438ef271305, type: 3}
     - target: {fileID: 1739830803315916180, guid: 6117c5f16428346de8691025568a01ce, type: 3}
       propertyPath: m_Name
       value: InventorySlot2
@@ -1988,6 +2009,10 @@ PrefabInstance:
       propertyPath: inventoryBar
       value: 
       objectReference: {fileID: 1062217272}
+    - target: {fileID: 409084530689100501, guid: 6117c5f16428346de8691025568a01ce, type: 3}
+      propertyPath: inventoryTextBoxPrefab
+      value: 
+      objectReference: {fileID: 8195582176351016027, guid: 820c8c99e103b4e7f906e438ef271305, type: 3}
     - target: {fileID: 1739830803315916180, guid: 6117c5f16428346de8691025568a01ce, type: 3}
       propertyPath: m_Name
       value: InventorySlot10
@@ -2109,6 +2134,10 @@ PrefabInstance:
       propertyPath: inventoryBar
       value: 
       objectReference: {fileID: 1062217272}
+    - target: {fileID: 409084530689100501, guid: 6117c5f16428346de8691025568a01ce, type: 3}
+      propertyPath: inventoryTextBoxPrefab
+      value: 
+      objectReference: {fileID: 8195582176351016027, guid: 820c8c99e103b4e7f906e438ef271305, type: 3}
     - target: {fileID: 1739830803315916180, guid: 6117c5f16428346de8691025568a01ce, type: 3}
       propertyPath: m_Name
       value: InventorySlot3
@@ -2230,6 +2259,10 @@ PrefabInstance:
       propertyPath: inventoryBar
       value: 
       objectReference: {fileID: 1062217272}
+    - target: {fileID: 409084530689100501, guid: 6117c5f16428346de8691025568a01ce, type: 3}
+      propertyPath: inventoryTextBoxPrefab
+      value: 
+      objectReference: {fileID: 8195582176351016027, guid: 820c8c99e103b4e7f906e438ef271305, type: 3}
     - target: {fileID: 1739830803315916180, guid: 6117c5f16428346de8691025568a01ce, type: 3}
       propertyPath: m_Name
       value: InventorySlot9
@@ -2382,6 +2415,10 @@ PrefabInstance:
       propertyPath: inventoryBar
       value: 
       objectReference: {fileID: 1062217272}
+    - target: {fileID: 409084530689100501, guid: 6117c5f16428346de8691025568a01ce, type: 3}
+      propertyPath: inventoryTextBoxPrefab
+      value: 
+      objectReference: {fileID: 8195582176351016027, guid: 820c8c99e103b4e7f906e438ef271305, type: 3}
     - target: {fileID: 1739830803315916180, guid: 6117c5f16428346de8691025568a01ce, type: 3}
       propertyPath: m_Name
       value: InventorySlot1
@@ -2503,6 +2540,10 @@ PrefabInstance:
       propertyPath: inventoryBar
       value: 
       objectReference: {fileID: 1062217272}
+    - target: {fileID: 409084530689100501, guid: 6117c5f16428346de8691025568a01ce, type: 3}
+      propertyPath: inventoryTextBoxPrefab
+      value: 
+      objectReference: {fileID: 8195582176351016027, guid: 820c8c99e103b4e7f906e438ef271305, type: 3}
     - target: {fileID: 1739830803315916180, guid: 6117c5f16428346de8691025568a01ce, type: 3}
       propertyPath: m_Name
       value: InventorySlot4
@@ -2879,6 +2920,10 @@ PrefabInstance:
       propertyPath: inventoryBar
       value: 
       objectReference: {fileID: 1062217272}
+    - target: {fileID: 409084530689100501, guid: 6117c5f16428346de8691025568a01ce, type: 3}
+      propertyPath: inventoryTextBoxPrefab
+      value: 
+      objectReference: {fileID: 8195582176351016027, guid: 820c8c99e103b4e7f906e438ef271305, type: 3}
     - target: {fileID: 1739830803315916180, guid: 6117c5f16428346de8691025568a01ce, type: 3}
       propertyPath: m_Name
       value: InventorySlot0
@@ -3000,6 +3045,10 @@ PrefabInstance:
       propertyPath: inventoryBar
       value: 
       objectReference: {fileID: 1062217272}
+    - target: {fileID: 409084530689100501, guid: 6117c5f16428346de8691025568a01ce, type: 3}
+      propertyPath: inventoryTextBoxPrefab
+      value: 
+      objectReference: {fileID: 8195582176351016027, guid: 820c8c99e103b4e7f906e438ef271305, type: 3}
     - target: {fileID: 1739830803315916180, guid: 6117c5f16428346de8691025568a01ce, type: 3}
       propertyPath: m_Name
       value: InventorySlot7
