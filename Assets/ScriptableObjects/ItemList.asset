@@ -22,7 +22,7 @@ MonoBehaviour:
     itemUseGridRadius: 0
     itemUseRadius: 2
     isStartingItem: 1
-    canBePickedUp: 0
+    canBePickedUp: 1
     canBeDropped: 0
     canBeEaten: 0
     canBeCarried: 0

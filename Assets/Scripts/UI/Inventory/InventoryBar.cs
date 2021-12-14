@@ -11,8 +11,8 @@ public class InventoryBar : MonoBehaviour
 
     private RectTransform rectTransform;
     private bool _isInventoryBarAtBottom = true;
-    private int selectedSlot = -1;
 
+    [HideInInspector] public int selectedSlot = -1;
     [HideInInspector] public GameObject inventoryTextBoxGameObject;
 
     public bool IsInventoryBarAtBottom
@@ -179,7 +179,6 @@ public class InventoryBar : MonoBehaviour
             {
                 inventorySlots[nextSelectedSlot].SetSelectedItem();
             }
-            selectedSlot = nextSelectedSlot;
         }
     }
 
@@ -189,8 +188,7 @@ public class InventoryBar : MonoBehaviour
         if (inventoryList.Count > 0)
         {
             int nextSelectedSlot = selectedSlot + 1;
-
-            if (nextSelectedSlot == inventoryList.Count || nextSelectedSlot == inventorySlots.Length)
+            if (nextSelectedSlot > inventoryList.Count || nextSelectedSlot == inventoryList.Count || nextSelectedSlot == inventorySlots.Length)
             {
                 nextSelectedSlot = 0;
             }
@@ -199,7 +197,6 @@ public class InventoryBar : MonoBehaviour
             {
                 inventorySlots[nextSelectedSlot].SetSelectedItem();
             }
-            selectedSlot = nextSelectedSlot;
         }
     }
 }

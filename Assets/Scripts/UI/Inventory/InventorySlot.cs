@@ -182,6 +182,7 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         inventoryBar.ClearHighlightOnInventorySlots();
         isSelected = true;
+        inventoryBar.selectedSlot = slotNumber;
         inventoryBar.SetHighlightedInventorySlots();
 
         InventoryManager.Instance.SetSelectedInventoryItem(InventoryLocation.Player, itemDetails.itemCode);
@@ -191,6 +192,7 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         inventoryBar.ClearHighlightOnInventorySlots();
         isSelected = false;
+        inventoryBar.selectedSlot = -1;
         InventoryManager.Instance.ClearSelectedInventoryItem(InventoryLocation.Player);
     }
 }
