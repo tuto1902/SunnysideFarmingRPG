@@ -7,9 +7,11 @@ public class InventoryBar : MonoBehaviour
 {
     [SerializeField] private Sprite transparent16x16Sprite = null;
     [SerializeField] private InventorySlot[] inventorySlots = null;
+    [SerializeField] private InputManager inputManager = null;
 
     private RectTransform rectTransform;
     private bool _isInventoryBarAtBottom = true;
+    private int selectedSlot = -1;
 
     [HideInInspector] public GameObject inventoryTextBoxGameObject;
 
@@ -24,11 +26,15 @@ public class InventoryBar : MonoBehaviour
     private void OnEnable()
     {
         EventHandler.InventoryUpdatedEvent += OnInventoryUpdated;
+        inputManager.itemSelectLeft += ItemSelectLeft;
+        inputManager.itemSelectRight += ItemSelectRight;
     }
 
     private void OnDisable()
     {
         EventHandler.InventoryUpdatedEvent -= OnInventoryUpdated;
+        inputManager.itemSelectLeft -= ItemSelectLeft;
+        inputManager.itemSelectRight -= ItemSelectRight;
     }
 
     private void Awake()
@@ -148,6 +154,52 @@ public class InventoryBar : MonoBehaviour
 
                 InventoryManager.Instance.SetSelectedInventoryItem(InventoryLocation.Player, inventorySlots[itemPosition].itemDetails.itemCode);
             }
+        }
+    }
+
+    private void ItemSelectLeft()
+    {
+        
+        List<InventoryItem> inventoryList = InventoryManager.Instance.inventoryLists[(int)InventoryLocation.Player];
+        if (inventoryList.Count > 0)
+        {
+            int nextSelectedSlot = selectedSlot - 1;
+            if (nextSelectedSlot < 0)
+            {
+                if (inventoryList.Count < inventorySlots.Length)
+                {
+                    nextSelectedSlot = inventoryList.Count - 1;
+                }
+                else
+                {
+                    nextSelectedSlot = inventorySlots.Length - 1;
+                }
+            }
+            if (inventorySlots[nextSelectedSlot].itemDetails != null)
+            {
+                inventorySlots[nextSelectedSlot].SetSelectedItem();
+            }
+            selectedSlot = nextSelectedSlot;
+        }
+    }
+
+    private void ItemSelectRight()
+    {
+        List<InventoryItem> inventoryList = InventoryManager.Instance.inventoryLists[(int)InventoryLocation.Player];
+        if (inventoryList.Count > 0)
+        {
+            int nextSelectedSlot = selectedSlot + 1;
+
+            if (nextSelectedSlot == inventoryList.Count || nextSelectedSlot == inventorySlots.Length)
+            {
+                nextSelectedSlot = 0;
+            }
+
+            if (inventorySlots[nextSelectedSlot].itemDetails != null)
+            {
+                inventorySlots[nextSelectedSlot].SetSelectedItem();
+            }
+            selectedSlot = nextSelectedSlot;
         }
     }
 }

@@ -33,6 +33,22 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""ItemSelectLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""3c18a79d-0356-428f-b7bb-bfb82c91e0d1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""ItemSelectRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""da11fae5-5840-4784-bf8d-0e0ff8fab46b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -187,6 +203,28 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""78c942ef-5a56-4780-8aeb-fc47400cabcb"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""ItemSelectLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c9324308-69c4-4b0c-a71d-0a2acc9cd14b"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""ItemSelectRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -793,6 +831,8 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
+        m_Player_ItemSelectLeft = m_Player.FindAction("ItemSelectLeft", throwIfNotFound: true);
+        m_Player_ItemSelectRight = m_Player.FindAction("ItemSelectRight", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -856,12 +896,16 @@ public class @InputActions : IInputActionCollection, IDisposable
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Run;
+    private readonly InputAction m_Player_ItemSelectLeft;
+    private readonly InputAction m_Player_ItemSelectRight;
     public struct PlayerActions
     {
         private @InputActions m_Wrapper;
         public PlayerActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Run => m_Wrapper.m_Player_Run;
+        public InputAction @ItemSelectLeft => m_Wrapper.m_Player_ItemSelectLeft;
+        public InputAction @ItemSelectRight => m_Wrapper.m_Player_ItemSelectRight;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -877,6 +921,12 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Run.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRun;
                 @Run.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRun;
                 @Run.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRun;
+                @ItemSelectLeft.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnItemSelectLeft;
+                @ItemSelectLeft.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnItemSelectLeft;
+                @ItemSelectLeft.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnItemSelectLeft;
+                @ItemSelectRight.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnItemSelectRight;
+                @ItemSelectRight.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnItemSelectRight;
+                @ItemSelectRight.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnItemSelectRight;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -887,6 +937,12 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Run.started += instance.OnRun;
                 @Run.performed += instance.OnRun;
                 @Run.canceled += instance.OnRun;
+                @ItemSelectLeft.started += instance.OnItemSelectLeft;
+                @ItemSelectLeft.performed += instance.OnItemSelectLeft;
+                @ItemSelectLeft.canceled += instance.OnItemSelectLeft;
+                @ItemSelectRight.started += instance.OnItemSelectRight;
+                @ItemSelectRight.performed += instance.OnItemSelectRight;
+                @ItemSelectRight.canceled += instance.OnItemSelectRight;
             }
         }
     }
@@ -1045,6 +1101,8 @@ public class @InputActions : IInputActionCollection, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
+        void OnItemSelectLeft(InputAction.CallbackContext context);
+        void OnItemSelectRight(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

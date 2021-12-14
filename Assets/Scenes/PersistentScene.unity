@@ -1558,6 +1558,7 @@ MonoBehaviour:
   - {fileID: 1526704691}
   - {fileID: 1467477567}
   - {fileID: 9922629}
+  inputManager: {fileID: 11400000, guid: 4d216a7c1e89940e1ac73da9a6ca11d3, type: 2}
   inventoryTextBoxGameObject: {fileID: 0}
   draggedItem: {fileID: 5587486758164496084, guid: be04749ea25304bf89b14d1d56e4d801, type: 3}
 --- !u!114 &1062217273

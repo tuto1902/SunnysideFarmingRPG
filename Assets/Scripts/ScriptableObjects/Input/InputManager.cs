@@ -9,6 +9,8 @@ public class InputManager : ScriptableObject, InputActions.IPlayerActions
 {
     public event UnityAction<Vector2> moveEvent;
     public event UnityAction toggleRunEvent;
+    public event UnityAction itemSelectLeft;
+    public event UnityAction itemSelectRight;
     private InputActions inputActions;
 
     private void OnEnable()
@@ -39,6 +41,22 @@ public class InputManager : ScriptableObject, InputActions.IPlayerActions
         if (toggleRunEvent != null)
         {
             toggleRunEvent.Invoke();
+        }
+    }
+
+    public void OnItemSelectLeft(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Canceled && itemSelectLeft != null)
+        {
+            itemSelectLeft.Invoke();
+        }
+    }
+
+    public void OnItemSelectRight(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Canceled && itemSelectRight != null)
+        {
+            itemSelectRight.Invoke();
         }
     }
 }
