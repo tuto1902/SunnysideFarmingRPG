@@ -117,7 +117,7 @@ MonoBehaviour:
     itemType: 1
     itemDescription: Parsnip
     itemSprite: {fileID: 21300000, guid: e075923e3d21a41588e1903ed885c7db, type: 3}
-    itemLongDescription: Sell it for coins. You can also eat to recover some health.
+    itemLongDescription: Sell it for coins. You can also eat it to recover some health.
     itemUseGridRadius: 0
     itemUseRadius: 0
     isStartingItem: 0

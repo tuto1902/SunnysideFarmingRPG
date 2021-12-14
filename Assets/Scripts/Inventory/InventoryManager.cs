@@ -6,6 +6,7 @@ using UnityEngine;
 public class InventoryManager : SingletonMonoBehaviour<InventoryManager>
 {
     private Dictionary<int, ItemDetails> itemDetailsDictionary;
+    private int[] selectedInventoryItem;
     [SerializeField] private ItemList itemList = null;
     [SerializeField] private PlayerInventorySettings playerInventorySettings;
 
@@ -17,6 +18,12 @@ public class InventoryManager : SingletonMonoBehaviour<InventoryManager>
         base.Awake();
         CreateInventoryLists();
         CreateItemDetailsDictionary();
+
+        selectedInventoryItem = new int[(int)InventoryLocation.count];
+        for (int i = 0; i < selectedInventoryItem.Length; i++)
+        {
+            selectedInventoryItem[i] = -1;
+        }
     }
 
     private void CreateInventoryLists()
@@ -30,16 +37,6 @@ public class InventoryManager : SingletonMonoBehaviour<InventoryManager>
 
         inventoryListCapacity = new int[(int)InventoryLocation.count];
         inventoryListCapacity[(int)InventoryLocation.Player] = playerInventorySettings.initialInvetoryCapacity;
-    }
-
-    private void CreateItemDetailsDictionary()
-    {
-        itemDetailsDictionary = new Dictionary<int, ItemDetails>();
-
-        foreach (ItemDetails itemDetails in itemList.itemDetailsList)
-        {
-            itemDetailsDictionary.Add(itemDetails.itemCode, itemDetails);
-        }
     }
 
     public ItemDetails GetItemDetails(int itemCode)
@@ -125,7 +122,27 @@ public class InventoryManager : SingletonMonoBehaviour<InventoryManager>
         return itemTypeDescription;
     }
 
-    private int FindItemInInventory(InventoryLocation inventoryLocation, int itemCode)
+    public void SetSelectedInventoryItem(InventoryLocation inventoryLocation, int itemCode)
+    {
+        selectedInventoryItem[(int)inventoryLocation] = itemCode;
+    }
+
+    public void ClearSelectedInventoryItem(InventoryLocation inventoryLocation)
+    {
+        selectedInventoryItem[(int)inventoryLocation] = -1;
+    }
+
+    private void CreateItemDetailsDictionary()
+    {
+        itemDetailsDictionary = new Dictionary<int, ItemDetails>();
+
+        foreach (ItemDetails itemDetails in itemList.itemDetailsList)
+        {
+            itemDetailsDictionary.Add(itemDetails.itemCode, itemDetails);
+        }
+    }
+
+    public int FindItemInInventory(InventoryLocation inventoryLocation, int itemCode)
     {
         List<InventoryItem> inventoryList = inventoryLists[(int)inventoryLocation];
         for (int i = 0; i < inventoryList.Count; i++)

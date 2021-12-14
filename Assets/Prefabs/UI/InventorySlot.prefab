@@ -240,6 +240,7 @@ MonoBehaviour:
   inventorySlotHighlight: {fileID: 980517841587747248}
   inventorySlotImage: {fileID: 9104350191660402914}
   textMeshProUGUI: {fileID: 7376691484880285582}
+  isSelected: 0
   itemDetails:
     itemCode: 0
     itemType: 0
@@ -254,9 +255,10 @@ MonoBehaviour:
     canBeEaten: 0
     canBeCarried: 0
   itemQuantity: 0
-  playerInput: {fileID: 0}
   inventoryBar: {fileID: 0}
   itemPrefab: {fileID: 4100777990994897815, guid: 06c27e136256942389288d9fd44a0993, type: 3}
+  inventoryTextBoxPrefab: {fileID: 0}
+  slotNumber: 0
 --- !u!1 &3363362397837817832
 GameObject:
   m_ObjectHideFlags: 0

@@ -85,6 +85,7 @@ public class InventoryBar : MonoBehaviour
                         inventorySlots[i].textMeshProUGUI.text = inventoryList[i].itemQuantity.ToString();
                         inventorySlots[i].itemDetails = itemDetails;
                         inventorySlots[i].itemQuantity = inventoryList[i].itemQuantity;
+                        SetHighlightedInventorySlots(i);
                     }
                 }
                 else
@@ -105,6 +106,47 @@ public class InventoryBar : MonoBehaviour
                 inventorySlots[i].textMeshProUGUI.text = "";
                 inventorySlots[i].itemDetails = null;
                 inventorySlots[i].itemQuantity = 0;
+                SetHighlightedInventorySlots(i);
+            }
+        }
+    }
+
+    public void ClearHighlightOnInventorySlots()
+    {
+        if (inventorySlots.Length > 0)
+        {
+            for (int i = 0; i < inventorySlots.Length; i++)
+            {
+                if (inventorySlots[i].isSelected)
+                {
+                    inventorySlots[i].isSelected = false;
+                    inventorySlots[i].inventorySlotHighlight.color = new Color(1, 1, 1, 0);
+                    InventoryManager.Instance.ClearSelectedInventoryItem(InventoryLocation.Player);
+                }
+            }
+        }
+    }
+
+    public void SetHighlightedInventorySlots()
+    {
+        if (inventorySlots.Length > 0)
+        {
+            for (int i = 0; i < inventorySlots.Length; i++)
+            {
+                SetHighlightedInventorySlots(i);
+            }
+        }
+    }
+
+    private void SetHighlightedInventorySlots(int itemPosition)
+    {
+        if (inventorySlots.Length > 0 && inventorySlots[itemPosition].itemDetails != null)
+        {
+            if (inventorySlots[itemPosition].isSelected)
+            {
+                inventorySlots[itemPosition].inventorySlotHighlight.color = new Color(1, 1, 1, 1);
+
+                InventoryManager.Instance.SetSelectedInventoryItem(InventoryLocation.Player, inventorySlots[itemPosition].itemDetails.itemCode);
             }
         }
     }

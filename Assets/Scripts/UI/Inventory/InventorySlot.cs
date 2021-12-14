@@ -1,19 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.UI;
 using System;
 
-public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
+public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     public Image inventorySlotHighlight;
     public Image inventorySlotImage;
     public TextMeshProUGUI textMeshProUGUI;
 
+    [HideInInspector] public bool isSelected = false;
     [HideInInspector] public ItemDetails itemDetails;
     [HideInInspector] public int itemQuantity;
 
@@ -47,6 +45,7 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             draggedItem = Instantiate(inventoryBar.draggedItem, inventoryBar.transform);
             Image draggedItemImage = draggedItem.GetComponentInChildren<Image>();
             draggedItemImage.sprite = inventorySlotImage.sprite;
+            SetSelectedItem();
             if (GamepadCursor.Instance.CurrentControlScheme == gamepadScheme)
             {
                 GamepadCursor.Instance.CanFadeOut = false;
@@ -82,6 +81,8 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                 InventoryManager.Instance.SwapInventoryItems(InventoryLocation.Player, slotNumber, toSlotNumber);
 
                 DestroyInventoryTextBox();
+
+                ClearSelectedItem();
             }
             else
             {
@@ -102,7 +103,7 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     private void DropItemAtMousePosition()
     {
-        if (itemDetails != null)
+        if (itemDetails != null && isSelected)
         {
             Vector2 mousePosition = GamepadCursor.Instance.CurrentControlScheme == gamepadScheme ? GamepadCursor.Instance.GetVirtualMousePosition() : Mouse.current.position.ReadValue();
             Vector3 worldPosition = mainCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, -mainCamera.transform.position.z));
@@ -112,6 +113,11 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             item.ItemCode = itemDetails.itemCode;
 
             InventoryManager.Instance.RemoveItem(InventoryLocation.Player, item.ItemCode);
+
+            if (InventoryManager.Instance.FindItemInInventory(InventoryLocation.Player, item.ItemCode) == -1)
+            {
+                ClearSelectedItem();
+            }
         }
     }
 
@@ -152,5 +158,39 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         {
             Destroy(inventoryBar.inventoryTextBoxGameObject);
         }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            if (isSelected == true)
+            {
+                ClearSelectedItem();
+            }
+            else
+            {
+                if (itemQuantity > 0)
+                {
+                    SetSelectedItem();
+                }
+            }
+        }
+    }
+
+    public void SetSelectedItem()
+    {
+        inventoryBar.ClearHighlightOnInventorySlots();
+        isSelected = true;
+        inventoryBar.SetHighlightedInventorySlots();
+
+        InventoryManager.Instance.SetSelectedInventoryItem(InventoryLocation.Player, itemDetails.itemCode);
+    }
+
+    public void ClearSelectedItem()
+    {
+        inventoryBar.ClearHighlightOnInventorySlots();
+        isSelected = false;
+        InventoryManager.Instance.ClearSelectedInventoryItem(InventoryLocation.Player);
     }
 }
