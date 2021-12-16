@@ -1,3 +1,12 @@
+public enum Season
+{
+    Spring,
+    Summer,
+    Autum,
+    Winter,
+    count
+}
+
 public enum AnimationName
 {
     BodyIdle,

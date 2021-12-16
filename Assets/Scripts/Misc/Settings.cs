@@ -23,6 +23,8 @@ public static class Settings
     public static string BuildingTool = "Hammer";
     public static string Weapon = "Sword";
 
+    public const float secondsPerGameSecond = 0.012f;
+
     static Settings()
     {
         isIdle = Animator.StringToHash("isIdle");
