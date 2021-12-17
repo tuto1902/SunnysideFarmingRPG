@@ -77,6 +77,8 @@ public class Player : SingletonMonoBehaviour<Player>
             PlayerWalkInput();
             PlayerFacingDirection();
 
+            PlayerTestInput();
+
             EventHandler.CallMovementEvent(
                 inputX,
                 inputY,
@@ -288,5 +290,10 @@ public class Player : SingletonMonoBehaviour<Player>
 
         // Always run for now
         isRunning = true;
+    }
+
+    private void PlayerTestInput()
+    {
+        
     }
 }

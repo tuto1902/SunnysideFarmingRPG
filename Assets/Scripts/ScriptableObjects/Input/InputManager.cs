@@ -59,4 +59,20 @@ public class InputManager : ScriptableObject, InputActions.IPlayerActions
             itemSelectRight.Invoke();
         }
     }
+
+    public void OnTestInputAdvanceTime(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Canceled)
+        {
+            TimeManager.Instance.TestAdvanceGameMinute();
+        }
+    }
+
+    public void OnTestInputAdvanceDay(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Canceled)
+        {
+            TimeManager.Instance.TestAdvanceGameDay();
+        }
+    }
 }

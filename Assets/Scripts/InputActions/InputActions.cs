@@ -49,6 +49,22 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""TestInputAdvanceTime"",
+                    ""type"": ""Button"",
+                    ""id"": ""750a01be-de12-4452-b98b-a31cb600f0ed"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""TestInputAdvanceDay"",
+                    ""type"": ""Button"",
+                    ""id"": ""4369ddad-2325-4a0f-98f9-5d883f622ef9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -225,6 +241,28 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""ItemSelectRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""43e348f4-9c51-471b-a86c-ac98d6153f17"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""TestInputAdvanceTime"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bc8fca97-e234-4cb2-a48f-05e727e6b003"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""TestInputAdvanceDay"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -833,6 +871,8 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
         m_Player_ItemSelectLeft = m_Player.FindAction("ItemSelectLeft", throwIfNotFound: true);
         m_Player_ItemSelectRight = m_Player.FindAction("ItemSelectRight", throwIfNotFound: true);
+        m_Player_TestInputAdvanceTime = m_Player.FindAction("TestInputAdvanceTime", throwIfNotFound: true);
+        m_Player_TestInputAdvanceDay = m_Player.FindAction("TestInputAdvanceDay", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -898,6 +938,8 @@ public class @InputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Run;
     private readonly InputAction m_Player_ItemSelectLeft;
     private readonly InputAction m_Player_ItemSelectRight;
+    private readonly InputAction m_Player_TestInputAdvanceTime;
+    private readonly InputAction m_Player_TestInputAdvanceDay;
     public struct PlayerActions
     {
         private @InputActions m_Wrapper;
@@ -906,6 +948,8 @@ public class @InputActions : IInputActionCollection, IDisposable
         public InputAction @Run => m_Wrapper.m_Player_Run;
         public InputAction @ItemSelectLeft => m_Wrapper.m_Player_ItemSelectLeft;
         public InputAction @ItemSelectRight => m_Wrapper.m_Player_ItemSelectRight;
+        public InputAction @TestInputAdvanceTime => m_Wrapper.m_Player_TestInputAdvanceTime;
+        public InputAction @TestInputAdvanceDay => m_Wrapper.m_Player_TestInputAdvanceDay;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -927,6 +971,12 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @ItemSelectRight.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnItemSelectRight;
                 @ItemSelectRight.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnItemSelectRight;
                 @ItemSelectRight.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnItemSelectRight;
+                @TestInputAdvanceTime.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestInputAdvanceTime;
+                @TestInputAdvanceTime.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestInputAdvanceTime;
+                @TestInputAdvanceTime.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestInputAdvanceTime;
+                @TestInputAdvanceDay.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestInputAdvanceDay;
+                @TestInputAdvanceDay.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestInputAdvanceDay;
+                @TestInputAdvanceDay.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestInputAdvanceDay;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -943,6 +993,12 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @ItemSelectRight.started += instance.OnItemSelectRight;
                 @ItemSelectRight.performed += instance.OnItemSelectRight;
                 @ItemSelectRight.canceled += instance.OnItemSelectRight;
+                @TestInputAdvanceTime.started += instance.OnTestInputAdvanceTime;
+                @TestInputAdvanceTime.performed += instance.OnTestInputAdvanceTime;
+                @TestInputAdvanceTime.canceled += instance.OnTestInputAdvanceTime;
+                @TestInputAdvanceDay.started += instance.OnTestInputAdvanceDay;
+                @TestInputAdvanceDay.performed += instance.OnTestInputAdvanceDay;
+                @TestInputAdvanceDay.canceled += instance.OnTestInputAdvanceDay;
             }
         }
     }
@@ -1103,6 +1159,8 @@ public class @InputActions : IInputActionCollection, IDisposable
         void OnRun(InputAction.CallbackContext context);
         void OnItemSelectLeft(InputAction.CallbackContext context);
         void OnItemSelectRight(InputAction.CallbackContext context);
+        void OnTestInputAdvanceTime(InputAction.CallbackContext context);
+        void OnTestInputAdvanceDay(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
