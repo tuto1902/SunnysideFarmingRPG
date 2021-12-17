@@ -26,15 +26,29 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     [SerializeField] private GameObject inventoryTextBoxPrefab = null;
     [SerializeField] private int slotNumber;
 
+    private void OnEnable()
+    {
+        EventHandler.AfterSceneLoadEvent += SceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        EventHandler.AfterSceneLoadEvent -= SceneLoaded;
+    }
+
     private void Awake()
     {
         parentCanvas = GetComponentInParent<Canvas>();
     }
 
+    private void SceneLoaded()
+    {
+        itemsParent = GameObject.FindGameObjectWithTag(Tags.ItemsParent).transform;
+    }
+
     private void Start()
     {
         mainCamera = Camera.main;
-        itemsParent = GameObject.FindGameObjectWithTag(Tags.ItemsParent).transform;
     }
 
     public void OnBeginDrag(PointerEventData eventData)

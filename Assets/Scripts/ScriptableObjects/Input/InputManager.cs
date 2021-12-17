@@ -75,4 +75,12 @@ public class InputManager : ScriptableObject, InputActions.IPlayerActions
             TimeManager.Instance.TestAdvanceGameDay();
         }
     }
+
+    public void OnTestInputReloadScene(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Canceled)
+        {
+            SceneControllerManager.Instance.FadeAndLoadScene(SceneName.Scene1_Farm.ToString(), Player.Instance.gameObject.transform.position);
+        }
+    }
 }

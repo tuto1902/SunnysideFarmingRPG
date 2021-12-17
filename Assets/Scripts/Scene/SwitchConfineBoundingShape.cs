@@ -6,10 +6,14 @@ using System;
 
 public class SwitchConfineBoundingShape : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
-        SwitchBoundingShape();
+        EventHandler.AfterSceneLoadEvent += SwitchBoundingShape;
+    }
+
+    private void OnDisable()
+    {
+        EventHandler.AfterSceneLoadEvent -= SwitchBoundingShape;
     }
 
     private void SwitchBoundingShape()

@@ -65,6 +65,14 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""TestInputReloadScene"",
+                    ""type"": ""Button"",
+                    ""id"": ""d99b8b80-683a-4196-8980-15e341bbcd08"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -263,6 +271,17 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""TestInputAdvanceDay"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6aa7a933-28b7-4387-92a8-d552cc2552a9"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""TestInputReloadScene"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -873,6 +892,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_Player_ItemSelectRight = m_Player.FindAction("ItemSelectRight", throwIfNotFound: true);
         m_Player_TestInputAdvanceTime = m_Player.FindAction("TestInputAdvanceTime", throwIfNotFound: true);
         m_Player_TestInputAdvanceDay = m_Player.FindAction("TestInputAdvanceDay", throwIfNotFound: true);
+        m_Player_TestInputReloadScene = m_Player.FindAction("TestInputReloadScene", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -940,6 +960,7 @@ public class @InputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_ItemSelectRight;
     private readonly InputAction m_Player_TestInputAdvanceTime;
     private readonly InputAction m_Player_TestInputAdvanceDay;
+    private readonly InputAction m_Player_TestInputReloadScene;
     public struct PlayerActions
     {
         private @InputActions m_Wrapper;
@@ -950,6 +971,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         public InputAction @ItemSelectRight => m_Wrapper.m_Player_ItemSelectRight;
         public InputAction @TestInputAdvanceTime => m_Wrapper.m_Player_TestInputAdvanceTime;
         public InputAction @TestInputAdvanceDay => m_Wrapper.m_Player_TestInputAdvanceDay;
+        public InputAction @TestInputReloadScene => m_Wrapper.m_Player_TestInputReloadScene;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -977,6 +999,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @TestInputAdvanceDay.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestInputAdvanceDay;
                 @TestInputAdvanceDay.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestInputAdvanceDay;
                 @TestInputAdvanceDay.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestInputAdvanceDay;
+                @TestInputReloadScene.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestInputReloadScene;
+                @TestInputReloadScene.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestInputReloadScene;
+                @TestInputReloadScene.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestInputReloadScene;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -999,6 +1024,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @TestInputAdvanceDay.started += instance.OnTestInputAdvanceDay;
                 @TestInputAdvanceDay.performed += instance.OnTestInputAdvanceDay;
                 @TestInputAdvanceDay.canceled += instance.OnTestInputAdvanceDay;
+                @TestInputReloadScene.started += instance.OnTestInputReloadScene;
+                @TestInputReloadScene.performed += instance.OnTestInputReloadScene;
+                @TestInputReloadScene.canceled += instance.OnTestInputReloadScene;
             }
         }
     }
@@ -1161,6 +1189,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         void OnItemSelectRight(InputAction.CallbackContext context);
         void OnTestInputAdvanceTime(InputAction.CallbackContext context);
         void OnTestInputAdvanceDay(InputAction.CallbackContext context);
+        void OnTestInputReloadScene(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

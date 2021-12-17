@@ -52,6 +52,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "TestInputReloadScene",
+                    "type": "Button",
+                    "id": "d99b8b80-683a-4196-8980-15e341bbcd08",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -250,6 +258,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "TestInputAdvanceDay",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6aa7a933-28b7-4387-92a8-d552cc2552a9",
+                    "path": "<Keyboard>/l",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "TestInputReloadScene",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
