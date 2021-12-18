@@ -1464,6 +1464,7 @@ GameObject:
   - component: {fileID: 6212825527926207759}
   - component: {fileID: 5613590418243667811}
   - component: {fileID: 8151788115752133674}
+  - component: {fileID: 274182874903822750}
   m_Layer: 0
   m_Name: CanPlaceFurniture
   m_TagString: Untagged
@@ -1471,6 +1472,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &274182874903822750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274182874903822749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60ee105a01c3d4299971c9f06a914b50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridProperties: {fileID: 11400000, guid: 2af00f6783e1d438ab42cc6349adcb90, type: 2}
+  gridBoolProperty: 2
 --- !u!483693784 &313250179750771866
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -5245,6 +5260,7 @@ GameObject:
   - component: {fileID: 4485853985335035713}
   - component: {fileID: 3023716268818071898}
   - component: {fileID: 883593171087444893}
+  - component: {fileID: 2271134074785282976}
   m_Layer: 0
   m_Name: Path
   m_TagString: Untagged
@@ -5252,6 +5268,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &2271134074785282976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2271134074785282975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60ee105a01c3d4299971c9f06a914b50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridProperties: {fileID: 11400000, guid: 2af00f6783e1d438ab42cc6349adcb90, type: 2}
+  gridBoolProperty: 3
 --- !u!50 &2277109758008563446
 Rigidbody2D:
   serializedVersion: 4
@@ -5388,6 +5418,7 @@ GameObject:
   - component: {fileID: 6823796133979068644}
   - component: {fileID: 2030863971220428516}
   - component: {fileID: 8309854907726224225}
+  - component: {fileID: 2536503612645643187}
   m_Layer: 0
   m_Name: CanDig
   m_TagString: Untagged
@@ -5395,6 +5426,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &2536503612645643187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2536503612645643186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60ee105a01c3d4299971c9f06a914b50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridProperties: {fileID: 11400000, guid: 2af00f6783e1d438ab42cc6349adcb90, type: 2}
+  gridBoolProperty: 0
 --- !u!483693784 &2614733832132110713
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -5575,6 +5620,7 @@ GameObject:
   - component: {fileID: 1764964976784713295}
   - component: {fileID: 7307219035281794069}
   - component: {fileID: 853275050222812189}
+  - component: {fileID: 3462498018346496243}
   m_Layer: 0
   m_Name: CanDropItem
   m_TagString: Untagged
@@ -5582,6 +5628,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &3462498018346496243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3462498018346496242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60ee105a01c3d4299971c9f06a914b50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridProperties: {fileID: 11400000, guid: 2af00f6783e1d438ab42cc6349adcb90, type: 2}
+  gridBoolProperty: 1
 --- !u!4 &3728601953808927780
 Transform:
   m_ObjectHideFlags: 0
@@ -23594,6 +23654,7 @@ GameObject:
   - component: {fileID: 3728601953808927780}
   - component: {fileID: 1816569112304391748}
   - component: {fileID: 4863225079134357891}
+  - component: {fileID: 8611662694299421239}
   m_Layer: 0
   m_Name: NPCObstacle
   m_TagString: Untagged
@@ -23601,6 +23662,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8611662694299421239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8611662694299421238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60ee105a01c3d4299971c9f06a914b50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridProperties: {fileID: 11400000, guid: 2af00f6783e1d438ab42cc6349adcb90, type: 2}
+  gridBoolProperty: 4
 --- !u!1839735485 &8619092794643374661
 Tilemap:
   m_ObjectHideFlags: 0
