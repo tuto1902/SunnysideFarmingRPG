@@ -4,14 +4,14 @@ using System.Collections.Generic;
 [System.Serializable]
 public class GameObjectSave
 {
-    public Dictionary<string, List<SceneSave>> sceneData;
+    public Dictionary<string, SceneSave> sceneData;
 
     public GameObjectSave()
     {
-        sceneData = new Dictionary<string, List<SceneSave>>();
+        sceneData = new Dictionary<string, SceneSave>();
     }
 
-    public GameObjectSave(Dictionary<string, List<SceneSave>> sceneData)
+    public GameObjectSave(Dictionary<string, SceneSave> sceneData)
     {
         this.sceneData = sceneData;
     }

@@ -26,7 +26,7 @@ public class Item : MonoBehaviour
         }
     }
 
-    private void Init(int itemCode)
+    public void Init(int itemCode)
     {
         ItemDetails itemDetails = InventoryManager.Instance.GetItemDetails(itemCode);
         spriteRenderer.sprite = itemDetails.itemSprite;
