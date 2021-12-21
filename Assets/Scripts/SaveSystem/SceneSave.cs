@@ -4,5 +4,6 @@ using System.Collections.Generic;
 [System.Serializable]
 public class SceneSave
 {
-    public Dictionary<string, List<SceneItem>> listSceneItemDictionary;
+    public List<SceneItem> sceneItemList;
+    public Dictionary<string, GridPropertyDetails> gridPropertyDetailsDictionary;
 }

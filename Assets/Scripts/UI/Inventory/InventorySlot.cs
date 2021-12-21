@@ -122,16 +122,23 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             Vector2 mousePosition = GamepadCursor.Instance.CurrentControlScheme == gamepadScheme ? GamepadCursor.Instance.GetVirtualMousePosition() : Mouse.current.position.ReadValue();
             Vector3 worldPosition = mainCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, -mainCamera.transform.position.z));
 
-            GameObject itemGameObject = Instantiate(itemPrefab, worldPosition, Quaternion.identity, itemsParent);
-            Item item = itemGameObject.GetComponent<Item>();
-            item.ItemCode = itemDetails.itemCode;
+            Vector3Int gridPosition = GridPropertiesManager.Instance.grid.WorldToCell(worldPosition);
+            GridPropertyDetails gridPropertyDetails = GridPropertiesManager.Instance.GetGridPropertyDetails(gridPosition.x, gridPosition.y);
 
-            InventoryManager.Instance.RemoveItem(InventoryLocation.Player, item.ItemCode);
-
-            if (InventoryManager.Instance.FindItemInInventory(InventoryLocation.Player, item.ItemCode) == -1)
+            if (gridPropertyDetails != null && gridPropertyDetails.canDropItem)
             {
-                ClearSelectedItem();
+                GameObject itemGameObject = Instantiate(itemPrefab, new Vector3(gridPosition.x + Settings.gridCellSize/2, gridPosition.y + Settings.gridCellSize / 2, worldPosition.z), Quaternion.identity, itemsParent);
+                Item item = itemGameObject.GetComponent<Item>();
+                item.ItemCode = itemDetails.itemCode;
+
+                InventoryManager.Instance.RemoveItem(InventoryLocation.Player, item.ItemCode);
+
+                if (InventoryManager.Instance.FindItemInInventory(InventoryLocation.Player, item.ItemCode) == -1)
+                {
+                    ClearSelectedItem();
+                }
             }
+
         }
     }
 

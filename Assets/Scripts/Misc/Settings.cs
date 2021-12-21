@@ -24,6 +24,7 @@ public static class Settings
     public static string Weapon = "Sword";
 
     public const float secondsPerGameSecond = 0.012f;
+    public const float gridCellSize = 1f;
 
     static Settings()
     {
