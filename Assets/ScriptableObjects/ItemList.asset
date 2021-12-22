@@ -106,7 +106,7 @@ MonoBehaviour:
     itemDescription: Wood
     itemSprite: {fileID: 21300000, guid: 1408b39c8b7d548d896ab9050311ae3c, type: 3}
     itemLongDescription: Use it to build wooden fences. Or sell it for a few coins.
-    itemUseGridRadius: 0
+    itemUseGridRadius: 1
     itemUseRadius: 0
     isStartingItem: 0
     canBePickedUp: 1
@@ -118,7 +118,7 @@ MonoBehaviour:
     itemDescription: Parsnip
     itemSprite: {fileID: 21300000, guid: e075923e3d21a41588e1903ed885c7db, type: 3}
     itemLongDescription: Sell it for coins. You can also eat it to recover some health.
-    itemUseGridRadius: 0
+    itemUseGridRadius: 1
     itemUseRadius: 0
     isStartingItem: 0
     canBePickedUp: 1

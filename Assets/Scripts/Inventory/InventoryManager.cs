@@ -203,4 +203,21 @@ public class InventoryManager : SingletonMonoBehaviour<InventoryManager>
             inventoryList.RemoveAt(itemPosition);
         }
     }
+
+    private int GetSelectedInventoryItem(InventoryLocation inventoryLocation)
+    {
+        return selectedInventoryItem[(int)inventoryLocation];
+    }
+
+    public ItemDetails GetSelectedInventoryItemDetails(InventoryLocation inventoryLocation)
+    {
+        int itemCode = GetSelectedInventoryItem(inventoryLocation);
+
+        if (itemCode != -1)
+        {
+            return GetItemDetails(itemCode);
+        }
+
+        return null;
+    }
 }

@@ -20,6 +20,7 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private GameObject draggedItem;
     private string gamepadScheme = "Gamepad";
     private Canvas parentCanvas;
+    private GridCursor gridCursor = null;
 
     [SerializeField] private InventoryBar inventoryBar = null;
     [SerializeField] private GameObject itemPrefab = null;
@@ -49,6 +50,13 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private void Start()
     {
         mainCamera = Camera.main;
+        gridCursor = FindObjectOfType<GridCursor>();
+    }
+
+    private void ClearCursors()
+    {
+        gridCursor.DisableCursor();
+        gridCursor.SelctedItemType = ItemType.none;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -119,15 +127,13 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         if (itemDetails != null && isSelected)
         {
-            Vector2 mousePosition = GamepadCursor.Instance.CurrentControlScheme == gamepadScheme ? GamepadCursor.Instance.GetVirtualMousePosition() : Mouse.current.position.ReadValue();
-            Vector3 worldPosition = mainCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, -mainCamera.transform.position.z));
 
-            Vector3Int gridPosition = GridPropertiesManager.Instance.grid.WorldToCell(worldPosition);
-            GridPropertyDetails gridPropertyDetails = GridPropertiesManager.Instance.GetGridPropertyDetails(gridPosition.x, gridPosition.y);
-
-            if (gridPropertyDetails != null && gridPropertyDetails.canDropItem)
+            if (gridCursor.CursorPositionIsValid)
             {
-                GameObject itemGameObject = Instantiate(itemPrefab, new Vector3(gridPosition.x + Settings.gridCellSize/2, gridPosition.y + Settings.gridCellSize / 2, worldPosition.z), Quaternion.identity, itemsParent);
+                Vector2 mousePosition = GamepadCursor.Instance.CurrentControlScheme == gamepadScheme ? GamepadCursor.Instance.GetVirtualMousePosition() : Mouse.current.position.ReadValue();
+                Vector3 worldPosition = mainCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, -mainCamera.transform.position.z));
+
+                GameObject itemGameObject = Instantiate(itemPrefab, worldPosition, Quaternion.identity, itemsParent);
                 Item item = itemGameObject.GetComponent<Item>();
                 item.ItemCode = itemDetails.itemCode;
 
@@ -206,6 +212,19 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         inventoryBar.selectedSlot = slotNumber;
         inventoryBar.SetHighlightedInventorySlots();
 
+        gridCursor.ItemUseGridRadius = itemDetails.itemUseGridRadius;
+
+        if (itemDetails.itemUseGridRadius > 0)
+        {
+            gridCursor.EnableCursor();
+        }
+        else
+        {
+            gridCursor.DisableCursor();
+        }
+
+        gridCursor.SelctedItemType = itemDetails.itemType;
+
         InventoryManager.Instance.SetSelectedInventoryItem(InventoryLocation.Player, itemDetails.itemCode);
 
         if (itemDetails.canBeCarried == true)
@@ -220,6 +239,7 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void ClearSelectedItem()
     {
+        ClearCursors();
         inventoryBar.ClearHighlightOnInventorySlots();
         isSelected = false;
         inventoryBar.selectedSlot = -1;

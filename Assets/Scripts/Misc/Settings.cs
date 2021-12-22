@@ -15,6 +15,8 @@ public static class Settings
     public static int hurtTrigger;
     public static int canUseTool;
 
+    public static string gamepadScheme = "Gamepad";
+
     public static string WateringTool = "Watering Can";
     public static string DiggingTool = "Shovel";
     public static string ChoppingTool = "Axe";
