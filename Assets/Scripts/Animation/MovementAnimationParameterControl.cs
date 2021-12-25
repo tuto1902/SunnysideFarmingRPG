@@ -48,6 +48,11 @@ public class MovementAnimationParameterControl : MonoBehaviour
         animator.SetBool(Settings.isUsingTool, isUsingTool);
         animator.SetBool(Settings.isDead, isDead);
 
+        if (isUsingTool)
+        {
+            animator.SetBool(Settings.canUseTool, true);
+        }
+
         bool isInteracting = animator.GetBool(Settings.isInteracting);
 
         if (isInteracting == false)

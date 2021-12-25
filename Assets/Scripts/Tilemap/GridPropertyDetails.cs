@@ -4,7 +4,7 @@ public class GridPropertyDetails
 {
     public int gridX;
     public int gridY;
-    public bool isDigable = false;
+    public bool isDiggable = false;
     public bool canDropItem = false;
     public bool canPlaceFurniture = false;
     public bool isPath = false;

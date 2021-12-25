@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class Player : SingletonMonoBehaviour<Player>
@@ -9,8 +10,9 @@ public class Player : SingletonMonoBehaviour<Player>
 
     private AnimationOverrides animationOverrides;
     private List<CharacterAttribute> characterAttributeCustomisationList;
-    private CharacterAttribute toolCharacterAtribute;
-    private CharacterAttribute bodyCharacterAtribute;
+    private CharacterAttribute toolCharacterAttribute;
+    private CharacterAttribute bodyCharacterAttribute;
+    private CharacterAttribute hairCharacterAttribute;
 
     private float inputX;
     private float inputY;
@@ -19,6 +21,10 @@ public class Player : SingletonMonoBehaviour<Player>
 
     private Rigidbody2D rigidBody2D;
     private Camera mainCamera;
+    private GridCursor gridCursor;
+
+    private WaitForSeconds afterUseToolAnimationPause;
+    private WaitForSeconds useToolAnimationPause;
 
     private bool isIdle;
     private bool isWalking;
@@ -46,19 +52,23 @@ public class Player : SingletonMonoBehaviour<Player>
         mainCamera = Camera.main;
 
         animationOverrides = GetComponentInChildren<AnimationOverrides>();
-        toolCharacterAtribute = new CharacterAttribute(CharacterPartAnimator.tool, PartVariantType.none);
-        bodyCharacterAtribute = new CharacterAttribute(CharacterPartAnimator.body, PartVariantType.none);
+        toolCharacterAttribute = new CharacterAttribute(CharacterPartAnimator.tool, PartVariantType.none);
+        bodyCharacterAttribute = new CharacterAttribute(CharacterPartAnimator.body, PartVariantType.none);
+        hairCharacterAttribute = new CharacterAttribute(CharacterPartAnimator.hair, PartVariantType.none);
+        
 
         characterAttributeCustomisationList = new List<CharacterAttribute>();
 
         inputManager.moveEvent += InputManager_OnMoveEvent;
         inputManager.toggleRunEvent += InputManager_OnToggleRun;
+        inputManager.playerClick += InputManager_OnPlayerClick;
     }
 
     private void OnDestroy()
     {
         inputManager.moveEvent -= InputManager_OnMoveEvent;
         inputManager.toggleRunEvent -= InputManager_OnToggleRun;
+        inputManager.playerClick -= InputManager_OnPlayerClick;
     }
 
     private void Start()
@@ -66,6 +76,9 @@ public class Player : SingletonMonoBehaviour<Player>
         isIdle = true;
         isUsingTool = false;
         playerDirection = PlayerDirection.Right;
+        gridCursor = FindObjectOfType<GridCursor>();
+        afterUseToolAnimationPause = new WaitForSeconds(Settings.afterUseToolAnimationPause);
+        useToolAnimationPause = new WaitForSeconds(Settings.useToolAnimationPause);
     }
 
     private void Update()
@@ -77,23 +90,23 @@ public class Player : SingletonMonoBehaviour<Player>
             PlayerWalkInput();
             PlayerFacingDirection();
 
-            PlayerTestInput();
-
-            EventHandler.CallMovementEvent(
-                inputX,
-                inputY,
-                isIdle,
-                isWalking,
-                isRunning,
-                isWatering,
-                isUsingHands,
-                isUsingTool,
-                isDead,
-                rollTrigger,
-                jumpTrigger,
-                hurtTrigger
-            );
+            
         }
+
+        EventHandler.CallMovementEvent(
+            inputX,
+            inputY,
+            isIdle,
+            isWalking,
+            isRunning,
+            isWatering,
+            isUsingHands,
+            isUsingTool,
+            isDead,
+            rollTrigger,
+            jumpTrigger,
+            hurtTrigger
+        );
     }
 
     private void FixedUpdate()
@@ -249,11 +262,11 @@ public class Player : SingletonMonoBehaviour<Player>
             equippedItemSpriteRenderer.sprite = itemDetails.itemSprite;
             equippedItemSpriteRenderer.color = new Color(1, 1, 1, 1);
 
-            bodyCharacterAtribute.partVariantType = PartVariantType.Carry;
-            toolCharacterAtribute.partVariantType = PartVariantType.Carry;
+            bodyCharacterAttribute.partVariantType = PartVariantType.Carry;
+            toolCharacterAttribute.partVariantType = PartVariantType.Carry;
             characterAttributeCustomisationList.Clear();
-            characterAttributeCustomisationList.Add(bodyCharacterAtribute);
-            characterAttributeCustomisationList.Add(toolCharacterAtribute);
+            characterAttributeCustomisationList.Add(bodyCharacterAttribute);
+            characterAttributeCustomisationList.Add(toolCharacterAttribute);
 
             animationOverrides.ApplyCharacterCustomisationParameters(characterAttributeCustomisationList);
         }
@@ -264,11 +277,11 @@ public class Player : SingletonMonoBehaviour<Player>
         equippedItemSpriteRenderer.sprite = null;
         equippedItemSpriteRenderer.color = new Color(1, 1, 1, 0);
 
-        bodyCharacterAtribute.partVariantType = PartVariantType.none;
-        toolCharacterAtribute.partVariantType = PartVariantType.none;
+        bodyCharacterAttribute.partVariantType = PartVariantType.none;
+        toolCharacterAttribute.partVariantType = PartVariantType.none;
         characterAttributeCustomisationList.Clear();
-        characterAttributeCustomisationList.Add(bodyCharacterAtribute);
-        characterAttributeCustomisationList.Add(toolCharacterAtribute);
+        characterAttributeCustomisationList.Add(bodyCharacterAttribute);
+        characterAttributeCustomisationList.Add(toolCharacterAttribute);
 
         animationOverrides.ApplyCharacterCustomisationParameters(characterAttributeCustomisationList);
     }
@@ -292,8 +305,147 @@ public class Player : SingletonMonoBehaviour<Player>
         isRunning = true;
     }
 
-    private void PlayerTestInput()
+    private void InputManager_OnPlayerClick()
     {
-        
+        if (isUsingTool)
+        {
+            return;
+        }
+
+        if (playerInputDisabled)
+        {
+            return;
+        }
+
+        if (gridCursor.CursorIsEnabled)
+        {
+            Vector3Int cursorGridPosition = gridCursor.GetGridPositionForCursor();
+            Vector3Int playerGridPosition = gridCursor.GetGridPositionForPlayer();
+
+            ProcessPlayerClickInput(cursorGridPosition, playerGridPosition);
+        }
+    }
+
+    private void ProcessPlayerClickInput(Vector3Int cursorGridPosition, Vector3Int playerGridPosition)
+    {
+        ResetMovement();
+
+        Vector3Int playerDirection = GetPlayerClickDirection(cursorGridPosition, playerGridPosition);
+        GridPropertyDetails gridPropertyDetails = GridPropertiesManager.Instance.GetGridPropertyDetails(cursorGridPosition.x, cursorGridPosition.y);
+
+        ItemDetails itemDetails = InventoryManager.Instance.GetSelectedInventoryItemDetails(InventoryLocation.Player);
+
+        if (itemDetails != null)
+        {
+            switch(itemDetails.itemType)
+            {
+                case ItemType.Seed:
+                    ProcessPlayerClickInputSeed(itemDetails);
+                    break;
+                case ItemType.Commodity:
+                    ProcessPlayerClickInputCommodity(itemDetails);
+                    break;
+                case ItemType.DiggingTool:
+                    ProcessPlayerClickInputTool(gridPropertyDetails, itemDetails, playerDirection);
+                    break;
+                case ItemType.none:
+                    break;
+                case ItemType.count:
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    
+    private Vector3Int GetPlayerClickDirection(Vector3Int cursorGridPosition, Vector3Int playerGridPosition)
+    {
+        if (cursorGridPosition.x > playerGridPosition.x)
+        {
+            return Vector3Int.right;
+        }
+        else
+        {
+            return Vector3Int.left;
+        }
+        // Also check for up and down when using 4 directional animations
+    }
+
+    private void ProcessPlayerClickInputCommodity(ItemDetails itemDetails)
+    {
+        if (itemDetails.canBeDropped && gridCursor.CursorPositionIsValid)
+        {
+            EventHandler.CallDropSelectedItemEvent();
+        }
+    }
+
+    private void ProcessPlayerClickInputSeed(ItemDetails itemDetails)
+    {
+        if (itemDetails.canBeDropped && gridCursor.CursorPositionIsValid)
+        {
+            EventHandler.CallDropSelectedItemEvent();
+        }
+    }
+
+    private void ProcessPlayerClickInputTool(GridPropertyDetails gridPropertyDetails, ItemDetails itemDetails, Vector3Int playerDirection)
+    {
+        switch(itemDetails.itemType)
+        {
+            case ItemType.DiggingTool:
+                if (gridCursor.CursorPositionIsValid)
+                {
+                    DigGroundAtCursor(gridPropertyDetails, playerDirection);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void DigGroundAtCursor(GridPropertyDetails gridPropertyDetails, Vector3Int playerDirection)
+    {
+        StartCoroutine(DigGroundAtCursorCoroutine(playerDirection, gridPropertyDetails));
+    }
+
+    private IEnumerator DigGroundAtCursorCoroutine(Vector3Int playerDirection, GridPropertyDetails gridPropertyDetails)
+    {
+        PlayerInputDisabled = true;
+        isUsingTool = true;
+
+        toolCharacterAttribute.partVariantType = PartVariantType.Shovel;
+        bodyCharacterAttribute.partVariantType = PartVariantType.Shovel;
+        hairCharacterAttribute.partVariantType = PartVariantType.Shovel;
+        characterAttributeCustomisationList.Clear();
+        characterAttributeCustomisationList.Add(toolCharacterAttribute);
+        characterAttributeCustomisationList.Add(bodyCharacterAttribute);
+        characterAttributeCustomisationList.Add(hairCharacterAttribute);
+
+        animationOverrides.ApplyCharacterCustomisationParameters(characterAttributeCustomisationList);
+
+        if (playerDirection == Vector3Int.left)
+        {
+            this.playerDirection = PlayerDirection.Left;
+        }
+        else
+        {
+            this.playerDirection = PlayerDirection.Right;
+        }
+
+        PlayerFacingDirection();
+
+        yield return useToolAnimationPause;
+
+        if (gridPropertyDetails.daysSinceDug == -1)
+        {
+            gridPropertyDetails.daysSinceDug = 0;
+        }
+
+        GridPropertiesManager.Instance.SetGridPropertyDetails(gridPropertyDetails.gridX, gridPropertyDetails.gridY, gridPropertyDetails);
+
+        yield return afterUseToolAnimationPause;
+
+        playerInputDisabled = false;
+        isUsingTool = false;
     }
 }

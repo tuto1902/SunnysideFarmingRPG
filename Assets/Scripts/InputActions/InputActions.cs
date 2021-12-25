@@ -73,6 +73,14 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""PlayerClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""392e97fe-fb02-495b-82ed-dd7f9acc29e2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -282,6 +290,28 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""TestInputReloadScene"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""15d6fe9f-fb0d-4c7a-b47e-0b2e3bc39ca1"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""PlayerClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2c5d4c89-f296-4b86-b279-e2c8a26a9b7f"",
+                    ""path"": ""<VirtualMouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PlayerClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -893,6 +923,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_Player_TestInputAdvanceTime = m_Player.FindAction("TestInputAdvanceTime", throwIfNotFound: true);
         m_Player_TestInputAdvanceDay = m_Player.FindAction("TestInputAdvanceDay", throwIfNotFound: true);
         m_Player_TestInputReloadScene = m_Player.FindAction("TestInputReloadScene", throwIfNotFound: true);
+        m_Player_PlayerClick = m_Player.FindAction("PlayerClick", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -961,6 +992,7 @@ public class @InputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_TestInputAdvanceTime;
     private readonly InputAction m_Player_TestInputAdvanceDay;
     private readonly InputAction m_Player_TestInputReloadScene;
+    private readonly InputAction m_Player_PlayerClick;
     public struct PlayerActions
     {
         private @InputActions m_Wrapper;
@@ -972,6 +1004,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         public InputAction @TestInputAdvanceTime => m_Wrapper.m_Player_TestInputAdvanceTime;
         public InputAction @TestInputAdvanceDay => m_Wrapper.m_Player_TestInputAdvanceDay;
         public InputAction @TestInputReloadScene => m_Wrapper.m_Player_TestInputReloadScene;
+        public InputAction @PlayerClick => m_Wrapper.m_Player_PlayerClick;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1002,6 +1035,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @TestInputReloadScene.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestInputReloadScene;
                 @TestInputReloadScene.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestInputReloadScene;
                 @TestInputReloadScene.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestInputReloadScene;
+                @PlayerClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlayerClick;
+                @PlayerClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlayerClick;
+                @PlayerClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlayerClick;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1027,6 +1063,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @TestInputReloadScene.started += instance.OnTestInputReloadScene;
                 @TestInputReloadScene.performed += instance.OnTestInputReloadScene;
                 @TestInputReloadScene.canceled += instance.OnTestInputReloadScene;
+                @PlayerClick.started += instance.OnPlayerClick;
+                @PlayerClick.performed += instance.OnPlayerClick;
+                @PlayerClick.canceled += instance.OnPlayerClick;
             }
         }
     }
@@ -1190,6 +1229,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         void OnTestInputAdvanceTime(InputAction.CallbackContext context);
         void OnTestInputAdvanceDay(InputAction.CallbackContext context);
         void OnTestInputReloadScene(InputAction.CallbackContext context);
+        void OnPlayerClick(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

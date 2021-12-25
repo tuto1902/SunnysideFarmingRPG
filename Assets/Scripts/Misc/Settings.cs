@@ -27,6 +27,10 @@ public static class Settings
 
     public const float secondsPerGameSecond = 0.012f;
     public const float gridCellSize = 1f;
+    public static Vector2 cursorSize = Vector2.one;
+
+    public static float useToolAnimationPause = 0.5f;
+    public static float afterUseToolAnimationPause = 0.2f;
 
     static Settings()
     {

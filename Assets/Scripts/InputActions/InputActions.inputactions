@@ -60,6 +60,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "PlayerClick",
+                    "type": "Button",
+                    "id": "392e97fe-fb02-495b-82ed-dd7f9acc29e2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -269,6 +277,28 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "TestInputReloadScene",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "15d6fe9f-fb0d-4c7a-b47e-0b2e3bc39ca1",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "PlayerClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2c5d4c89-f296-4b86-b279-e2c8a26a9b7f",
+                    "path": "<VirtualMouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PlayerClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

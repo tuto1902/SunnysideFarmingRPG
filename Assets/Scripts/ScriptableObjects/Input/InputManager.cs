@@ -11,6 +11,7 @@ public class InputManager : ScriptableObject, InputActions.IPlayerActions
     public event UnityAction toggleRunEvent;
     public event UnityAction itemSelectLeft;
     public event UnityAction itemSelectRight;
+    public event UnityAction playerClick;
     private InputActions inputActions;
 
     private void OnEnable()
@@ -81,6 +82,14 @@ public class InputManager : ScriptableObject, InputActions.IPlayerActions
         if (context.phase == InputActionPhase.Canceled)
         {
             SceneControllerManager.Instance.FadeAndLoadScene(SceneName.Scene1_Farm.ToString(), Player.Instance.gameObject.transform.position);
+        }
+    }
+
+    public void OnPlayerClick(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Canceled && playerClick != null)
+        {
+            playerClick.Invoke();
         }
     }
 }

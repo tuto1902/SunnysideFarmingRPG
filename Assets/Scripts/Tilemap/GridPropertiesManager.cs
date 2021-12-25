@@ -52,7 +52,7 @@ public class GridPropertiesManager : SingletonMonoBehaviour<GridPropertiesManage
                 switch (gridProperty.gridBoolProperty)
                 {
                     case GridBoolProperty.diggable:
-                        gridPropertyDetails.isDigable = gridProperty.gridBoolValue;
+                        gridPropertyDetails.isDiggable = gridProperty.gridBoolValue;
                         break;
                     case GridBoolProperty.canDropItem:
                         gridPropertyDetails.canDropItem = gridProperty.gridBoolValue;

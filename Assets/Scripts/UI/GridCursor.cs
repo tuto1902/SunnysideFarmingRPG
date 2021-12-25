@@ -1,6 +1,7 @@
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class GridCursor : MonoBehaviour
 {
@@ -135,6 +136,13 @@ public class GridCursor : MonoBehaviour
                         return;
                     }
                     break;
+                case ItemType.DiggingTool:
+                    if (!IsCursorValidForTool(gridPropertyDetails, itemDetails))
+                    {
+                        SetCursorToInvalid();
+                        return;
+                    }
+                    break;
                 case ItemType.none:
                     break;
                 case ItemType.count:
@@ -148,6 +156,48 @@ public class GridCursor : MonoBehaviour
             SetCursorToInvalid();
             return;
         }
+    }
+
+    private bool IsCursorValidForTool(GridPropertyDetails gridPropertyDetails, ItemDetails itemDetails)
+    {
+        switch (itemDetails.itemType)
+        {
+            case ItemType.DiggingTool:
+                if (gridPropertyDetails.isDiggable && gridPropertyDetails.daysSinceDug == -1)
+                {
+                    Vector3 cursorWorldPosition = new Vector3(GetWorldPositionForCursor().x + 0.5f, GetWorldPositionForCursor().y + 0.5f, 0f);
+
+                    List<Item> itemList = new List<Item>();
+
+                    HelperMethods.GetComponentsAtBoxLocation<Item>(out itemList, cursorWorldPosition, Settings.cursorSize, 0f);
+
+                    bool foundReapable = false;
+                    foreach (Item item in itemList)
+                    {
+                        if (InventoryManager.Instance.GetItemDetails(item.ItemCode).itemType == ItemType.ReapableScenary)
+                        {
+                            foundReapable = true;
+                            break;
+                        }
+                    }
+
+                    if (foundReapable)
+                    {
+                        return false;
+                    }
+
+                    return true;
+                }
+
+                return false;
+            default:
+                return false;
+        }
+    }
+
+    private Vector3 GetWorldPositionForCursor()
+    {
+        return grid.CellToWorld(GetGridPositionForCursor());
     }
 
     private bool IsCursorValidForCommodity(GridPropertyDetails gridPropertyDetails)
@@ -179,12 +229,12 @@ public class GridCursor : MonoBehaviour
         return RectTransformUtility.PixelAdjustPoint(gridScreenPosition, cursorRectTransform, canvas);
     }
 
-    private Vector3Int GetGridPositionForPlayer()
+    public Vector3Int GetGridPositionForPlayer()
     {
         return grid.WorldToCell(Player.Instance.transform.position);
     }
 
-    private Vector3Int GetGridPositionForCursor()
+    public Vector3Int GetGridPositionForCursor()
     {
         Vector3 cursorPosition;
         if (GamepadCursor.Instance.CurrentControlScheme == Settings.gamepadScheme)

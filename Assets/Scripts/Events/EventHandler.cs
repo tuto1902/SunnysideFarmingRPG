@@ -33,6 +33,8 @@ public static class EventHandler
     public static event Action AfterSceneLoadEvent;
     public static event Action AfterSceneLoadFadeInEvent;
 
+    public static event Action DropSelectedItemEvent;
+
     public static void CallMovementEvent(
         float inputX,
         float inputY,
@@ -144,6 +146,14 @@ public static class EventHandler
         if (AfterSceneLoadFadeInEvent != null)
         {
             AfterSceneLoadFadeInEvent();
+        }
+    }
+
+    public static void CallDropSelectedItemEvent()
+    {
+        if (DropSelectedItemEvent != null)
+        {
+            DropSelectedItemEvent();
         }
     }
 }

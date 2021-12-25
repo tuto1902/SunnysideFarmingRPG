@@ -45,6 +45,7 @@ public enum PartVariantType
     Axe,
     Hammer,
     Minning,
+    Shovel,
     Sword,
     none,
     count
