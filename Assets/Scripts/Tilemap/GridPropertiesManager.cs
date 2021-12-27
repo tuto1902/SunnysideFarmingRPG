@@ -1,12 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(GenerateGUID))]
 public class GridPropertiesManager : SingletonMonoBehaviour<GridPropertiesManager>, ISaveable
 {
-    public Grid grid;
+    private Tilemap groundDecoration1;
+    private Tilemap groundDecoration2;
+    private Grid grid;
     private Dictionary<string, GridPropertyDetails> gridPropertyDictionary;
     [SerializeField] private GridProperties[] gridPropertiesArray = null;
+    [SerializeField] private Tile[] dugGround = null;
 
     private string _uniqueID;
     private GameObjectSave _gameObjectSave;
@@ -32,6 +36,61 @@ public class GridPropertiesManager : SingletonMonoBehaviour<GridPropertiesManage
     private void Start()
     {
         InitialiseGridProperties();
+    }
+
+    private void ClearDisplayGroundDecorations()
+    {
+        groundDecoration1.ClearAllTiles();
+        groundDecoration2.ClearAllTiles();
+    }
+
+    private void ClearDisplayGridPropertyDetails()
+    {
+        ClearDisplayGroundDecorations();
+    }
+
+    private void DisplayGridPropertyDetails()
+    {
+        foreach(KeyValuePair<string, GridPropertyDetails> item in gridPropertyDictionary)
+        {
+            GridPropertyDetails gridPropertyDetails = item.Value;
+            DisplayDugGround(gridPropertyDetails);
+        }
+    }
+
+    public void DisplayDugGround(GridPropertyDetails gridPropertyDetails)
+    {
+        if (gridPropertyDetails.daysSinceDug > -1)
+        {
+            ConnectDugGround(gridPropertyDetails);
+        }
+    }
+
+    private void ConnectDugGround(GridPropertyDetails gridPropertyDetails)
+    {
+        Tile dugTile0 = SetDugTile(gridPropertyDetails.gridX, gridPropertyDetails.gridY);
+        groundDecoration1.SetTile(new Vector3Int(gridPropertyDetails.gridX, gridPropertyDetails.gridY, 0), dugTile0);
+    }
+
+    private Tile SetDugTile(int gridX, int gridY)
+    {
+        return dugGround[0];
+    }
+
+    private bool IsGridSquareDug(int xGrid, int yGrid)
+    {
+        GridPropertyDetails gridPropertyDetails = GridPropertiesManager.Instance.GetGridPropertyDetails(xGrid, yGrid);
+        if (gridPropertyDetails == null)
+        {
+            return false;
+        }
+
+        if (gridPropertyDetails.daysSinceDug > -1)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     private void InitialiseGridProperties()
@@ -133,6 +192,8 @@ public class GridPropertiesManager : SingletonMonoBehaviour<GridPropertiesManage
     private void AfterSceneLoaded()
     {
         grid = GameObject.FindObjectOfType<Grid>();
+        groundDecoration1 = GameObject.FindGameObjectWithTag(Tags.GroundDecoration1).GetComponent<Tilemap>();
+        groundDecoration2 = GameObject.FindGameObjectWithTag(Tags.GroundDecoration2).GetComponent<Tilemap>();
     }
 
     public void Register()
@@ -154,6 +215,12 @@ public class GridPropertiesManager : SingletonMonoBehaviour<GridPropertiesManage
             {
                 gridPropertyDictionary = sceneSave.gridPropertyDetailsDictionary;
             }
+        }
+
+        if (gridPropertyDictionary.Count > 0)
+        {
+            ClearDisplayGridPropertyDetails();
+            DisplayGridPropertyDetails();
         }
     }
 

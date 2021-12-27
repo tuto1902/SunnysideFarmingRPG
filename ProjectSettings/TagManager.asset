@@ -7,6 +7,8 @@ TagManager:
   - BoundsConfiner
   - ItemsParent
   - GamepadCursor
+  - GroundDecoration1
+  - GroundDecoration2
   layers:
   - Default
   - TransparentFX

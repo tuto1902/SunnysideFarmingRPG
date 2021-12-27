@@ -3636,10 +3636,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4a1524873e904967948aef164b93ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grid: {fileID: 0}
   gridPropertiesArray:
   - {fileID: 11400000, guid: 8fe2235d2e3274282aff3b25607d0b96, type: 2}
   - {fileID: 11400000, guid: 2af00f6783e1d438ab42cc6349adcb90, type: 2}
+  dugGround:
+  - {fileID: 11400000, guid: 59b6343d7c8e14358ae78f2e82380fc7, type: 2}
+  - {fileID: 11400000, guid: a3352b75b356e46c79690d6fa6f73033, type: 2}
+  - {fileID: 11400000, guid: 7a657eea7cb0c46c2a42338433a2fe5c, type: 2}
 --- !u!114 &1798497662
 MonoBehaviour:
   m_ObjectHideFlags: 0
