@@ -11,6 +11,7 @@ public class GridPropertiesManager : SingletonMonoBehaviour<GridPropertiesManage
     private Dictionary<string, GridPropertyDetails> gridPropertyDictionary;
     [SerializeField] private GridProperties[] gridPropertiesArray = null;
     [SerializeField] private Tile[] dugGround = null;
+    [SerializeField] private Tile[] wateredGround = null;
 
     private string _uniqueID;
     private GameObjectSave _gameObjectSave;
@@ -66,15 +67,50 @@ public class GridPropertiesManager : SingletonMonoBehaviour<GridPropertiesManage
         }
     }
 
+    public void DisplayWateredGround(GridPropertyDetails gridPropertyDetails)
+    {
+        if (gridPropertyDetails.daysSinceWatered > -1)
+        {
+            ConnectWateredGround(gridPropertyDetails);
+        }
+    }
+
     private void ConnectDugGround(GridPropertyDetails gridPropertyDetails)
     {
         Tile dugTile0 = SetDugTile(gridPropertyDetails.gridX, gridPropertyDetails.gridY);
         groundDecoration1.SetTile(new Vector3Int(gridPropertyDetails.gridX, gridPropertyDetails.gridY, 0), dugTile0);
     }
 
+    private void ConnectWateredGround(GridPropertyDetails gridPropertyDetails)
+    {
+        Tile wateredTile0 = SetWateredTile(gridPropertyDetails.gridX, gridPropertyDetails.gridY);
+        groundDecoration1.SetTile(new Vector3Int(gridPropertyDetails.gridX, gridPropertyDetails.gridY, 0), wateredTile0);
+    }
+
     private Tile SetDugTile(int gridX, int gridY)
     {
         return dugGround[0];
+    }
+
+    private Tile SetWateredTile(int gridX, int gridY)
+    {
+        return wateredGround[0];
+    }
+
+    private bool IsGridSquareWatered(int xGrid, int yGrid)
+    {
+        GridPropertyDetails gridPropertyDetails = GridPropertiesManager.Instance.GetGridPropertyDetails(xGrid, yGrid);
+        if (gridPropertyDetails == null)
+        {
+            return false;
+        }
+
+        if (gridPropertyDetails.daysSinceWatered > -1)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     private bool IsGridSquareDug(int xGrid, int yGrid)

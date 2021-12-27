@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b05219f98e0564f0a9a087c62b15d020, type: 3}
-  m_Name: bodyToolNone
+  m_Name: toolToolWatering
   m_EditorClassIdentifier: 
-  animationClip: {fileID: 7400000, guid: db948ce82b00d46e58c7bbfef50feb22, type: 2}
-  animationName: 1
-  characterPart: 0
-  partVariantType: 7
+  animationClip: {fileID: 7400000, guid: a30d71e94221946f6988a603fca96b1c, type: 2}
+  animationName: 8
+  characterPart: 2
+  partVariantType: 6

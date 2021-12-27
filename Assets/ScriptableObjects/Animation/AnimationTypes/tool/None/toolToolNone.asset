@@ -15,4 +15,4 @@ MonoBehaviour:
   animationClip: {fileID: 7400000, guid: 660e1ad6935274100807a0b4d3c91b93, type: 2}
   animationName: 8
   characterPart: 2
-  partVariantType: 6
+  partVariantType: 7

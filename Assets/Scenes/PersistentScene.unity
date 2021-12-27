@@ -1359,6 +1359,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3ca11f6351ec44e43884411ae108161b, type: 2}
   - {fileID: 11400000, guid: d6eea64e3c95d4e3e88cfc591829844f, type: 2}
   - {fileID: 11400000, guid: 027ad0a3a562c48378908c27e7cdfd5a, type: 2}
+  - {fileID: 11400000, guid: 4c62eea9161774c98b79f395c547a07e, type: 2}
+  - {fileID: 11400000, guid: 2946558784f304328b46b0d37167aa46, type: 2}
+  - {fileID: 11400000, guid: 0fb91256fb8cc4faaab4e90e85872e84, type: 2}
 --- !u!1 &535031629
 GameObject:
   m_ObjectHideFlags: 0
@@ -3642,6 +3645,8 @@ MonoBehaviour:
   dugGround:
   - {fileID: 11400000, guid: 59b6343d7c8e14358ae78f2e82380fc7, type: 2}
   - {fileID: 11400000, guid: a3352b75b356e46c79690d6fa6f73033, type: 2}
+  wateredGround:
+  - {fileID: 11400000, guid: 74cac3bd33d2543158fa333168c8fa2b, type: 2}
   - {fileID: 11400000, guid: 7a657eea7cb0c46c2a42338433a2fe5c, type: 2}
 --- !u!114 &1798497662
 MonoBehaviour:

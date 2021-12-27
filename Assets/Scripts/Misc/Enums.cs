@@ -47,6 +47,7 @@ public enum PartVariantType
     Minning,
     Shovel,
     Sword,
+    Watering,
     none,
     count
 }
