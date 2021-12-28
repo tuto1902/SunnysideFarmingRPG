@@ -47,6 +47,11 @@ public class Player : SingletonMonoBehaviour<Player>
         set => playerInputDisabled = value;
     }
 
+    public PlayerDirection PlayerDirection
+    {
+        get => playerDirection;
+    }
+
     protected override void Awake()
     {
         base.Awake();
@@ -65,6 +70,7 @@ public class Player : SingletonMonoBehaviour<Player>
         inputManager.moveEvent += InputManager_OnMoveEvent;
         inputManager.toggleRunEvent += InputManager_OnToggleRun;
         inputManager.playerClick += InputManager_OnPlayerClick;
+        inputManager.useToolEvent += InputManager_OnUseTool;
     }
 
     private void OnDestroy()
@@ -72,6 +78,7 @@ public class Player : SingletonMonoBehaviour<Player>
         inputManager.moveEvent -= InputManager_OnMoveEvent;
         inputManager.toggleRunEvent -= InputManager_OnToggleRun;
         inputManager.playerClick -= InputManager_OnPlayerClick;
+        inputManager.useToolEvent -= InputManager_OnUseTool;
     }
 
     private void Start()
@@ -94,8 +101,6 @@ public class Player : SingletonMonoBehaviour<Player>
             PlayerMovementInput();
             PlayerWalkInput();
             PlayerFacingDirection();
-
-            
         }
 
         EventHandler.CallMovementEvent(
@@ -133,14 +138,15 @@ public class Player : SingletonMonoBehaviour<Player>
         {
             isIdle = false;
             isRunning = true;
+            gridCursor.DisableCursor();
 
             movementSpeed = playerMovementSettings.walkingSpeed;
 
-            if (inputX < 0)
+            if (inputX < -0.05f)
             {
                 playerDirection = PlayerDirection.Left;
             }
-            else if (inputX > 0)
+            else if (inputX > 0.05f)
             {
                 playerDirection = PlayerDirection.Right;
             }
@@ -150,6 +156,11 @@ public class Player : SingletonMonoBehaviour<Player>
             isIdle = true;
             isWalking = false;
             isRunning = false;
+            ItemDetails itemDetails = InventoryManager.Instance.GetSelectedInventoryItemDetails(InventoryLocation.Player);
+            if (itemDetails != null && itemDetails.itemUseGridRadius > 0)
+            {
+                gridCursor.EnableCursor();
+            }
         }
     }
 
@@ -322,11 +333,31 @@ public class Player : SingletonMonoBehaviour<Player>
             return;
         }
 
+        if (GamepadCursor.Instance.CurrentControlScheme == Settings.gamepadScheme)
+        {
+            return;
+        }
+
         if (gridCursor.CursorIsEnabled)
         {
             Vector3Int cursorGridPosition = gridCursor.GetGridPositionForCursor();
             Vector3Int playerGridPosition = gridCursor.GetGridPositionForPlayer();
 
+            ProcessPlayerClickInput(cursorGridPosition, playerGridPosition);
+        }
+    }
+
+    private void InputManager_OnUseTool()
+    {
+        if (GamepadCursor.Instance.CurrentControlScheme != Settings.gamepadScheme)
+        {
+            return;
+        }
+
+        if (gridCursor.CursorIsEnabled)
+        {
+            Vector3Int cursorGridPosition = gridCursor.GetGridPositionForCursor();
+            Vector3Int playerGridPosition = gridCursor.GetGridPositionForPlayer();
             ProcessPlayerClickInput(cursorGridPosition, playerGridPosition);
         }
     }

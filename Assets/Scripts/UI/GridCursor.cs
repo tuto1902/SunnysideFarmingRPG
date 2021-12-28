@@ -244,17 +244,19 @@ public class GridCursor : MonoBehaviour
 
     public Vector3Int GetGridPositionForCursor()
     {
-        Vector3 cursorPosition;
         if (GamepadCursor.Instance.CurrentControlScheme == Settings.gamepadScheme)
         {
-            cursorPosition = GamepadCursor.Instance.GetVirtualMousePosition();
+            PlayerDirection playerDirection = Player.Instance.PlayerDirection;
+            Vector3Int playerGridPosition = GetGridPositionForPlayer();
+            Vector3Int gridPosition = new Vector3Int(playerDirection == PlayerDirection.Left ? playerGridPosition.x - 1 : playerGridPosition.x + 1, playerGridPosition.y, 0);
+            return gridPosition;
         }
         else
         {
-            cursorPosition = Mouse.current.position.ReadValue();
+            Vector3 cursorPosition = Mouse.current.position.ReadValue();
+            Vector3 worldPosition = mainCamera.ScreenToWorldPoint(new Vector3(cursorPosition.x, cursorPosition.y, -mainCamera.transform.position.z));
+            return grid.WorldToCell(worldPosition);
         }
 
-        Vector3 worldPosition = mainCamera.ScreenToWorldPoint(new Vector3(cursorPosition.x, cursorPosition.y, -mainCamera.transform.position.z));
-        return grid.WorldToCell(worldPosition);
     }
 }

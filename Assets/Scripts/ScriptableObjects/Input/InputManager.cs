@@ -12,6 +12,7 @@ public class InputManager : ScriptableObject, InputActions.IPlayerActions
     public event UnityAction itemSelectLeft;
     public event UnityAction itemSelectRight;
     public event UnityAction playerClick;
+    public event UnityAction useToolEvent;
     private InputActions inputActions;
 
     private void OnEnable()
@@ -90,6 +91,14 @@ public class InputManager : ScriptableObject, InputActions.IPlayerActions
         if (context.phase == InputActionPhase.Canceled && playerClick != null)
         {
             playerClick.Invoke();
+        }
+    }
+
+    public void OnUseTool(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Canceled && useToolEvent != null)
+        {
+            useToolEvent.Invoke();
         }
     }
 }

@@ -68,6 +68,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "UseTool",
+                    "type": "Button",
+                    "id": "7f1ed804-8465-4eea-b014-43117f1b990e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -299,6 +307,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "PlayerClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "587272cc-3f49-4179-a304-14fc823899fa",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "UseTool",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

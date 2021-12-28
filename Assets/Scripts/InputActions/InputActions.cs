@@ -81,6 +81,14 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""UseTool"",
+                    ""type"": ""Button"",
+                    ""id"": ""7f1ed804-8465-4eea-b014-43117f1b990e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -312,6 +320,17 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""PlayerClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""587272cc-3f49-4179-a304-14fc823899fa"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""UseTool"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -924,6 +943,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_Player_TestInputAdvanceDay = m_Player.FindAction("TestInputAdvanceDay", throwIfNotFound: true);
         m_Player_TestInputReloadScene = m_Player.FindAction("TestInputReloadScene", throwIfNotFound: true);
         m_Player_PlayerClick = m_Player.FindAction("PlayerClick", throwIfNotFound: true);
+        m_Player_UseTool = m_Player.FindAction("UseTool", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -993,6 +1013,7 @@ public class @InputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_TestInputAdvanceDay;
     private readonly InputAction m_Player_TestInputReloadScene;
     private readonly InputAction m_Player_PlayerClick;
+    private readonly InputAction m_Player_UseTool;
     public struct PlayerActions
     {
         private @InputActions m_Wrapper;
@@ -1005,6 +1026,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         public InputAction @TestInputAdvanceDay => m_Wrapper.m_Player_TestInputAdvanceDay;
         public InputAction @TestInputReloadScene => m_Wrapper.m_Player_TestInputReloadScene;
         public InputAction @PlayerClick => m_Wrapper.m_Player_PlayerClick;
+        public InputAction @UseTool => m_Wrapper.m_Player_UseTool;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1038,6 +1060,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @PlayerClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlayerClick;
                 @PlayerClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlayerClick;
                 @PlayerClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlayerClick;
+                @UseTool.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUseTool;
+                @UseTool.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUseTool;
+                @UseTool.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUseTool;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1066,6 +1091,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @PlayerClick.started += instance.OnPlayerClick;
                 @PlayerClick.performed += instance.OnPlayerClick;
                 @PlayerClick.canceled += instance.OnPlayerClick;
+                @UseTool.started += instance.OnUseTool;
+                @UseTool.performed += instance.OnUseTool;
+                @UseTool.canceled += instance.OnUseTool;
             }
         }
     }
@@ -1230,6 +1258,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         void OnTestInputAdvanceDay(InputAction.CallbackContext context);
         void OnTestInputReloadScene(InputAction.CallbackContext context);
         void OnPlayerClick(InputAction.CallbackContext context);
+        void OnUseTool(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

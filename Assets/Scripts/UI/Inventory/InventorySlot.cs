@@ -132,10 +132,20 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
             if (gridCursor.CursorPositionIsValid)
             {
-                Vector2 mousePosition = GamepadCursor.Instance.CurrentControlScheme == gamepadScheme ? GamepadCursor.Instance.GetVirtualMousePosition() : Mouse.current.position.ReadValue();
-                Vector3 worldPosition = mainCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, -mainCamera.transform.position.z));
+                GameObject itemGameObject;
+                if (GamepadCursor.Instance.CurrentControlScheme == Settings.gamepadScheme)
+                {
+                    Vector3Int cursorGridPosition = gridCursor.GetGridPositionForCursor();
+                    Vector3 cursorPosition = new Vector3(cursorGridPosition.x + Settings.gridCellSize / 2, cursorGridPosition.y + Settings.gridCellSize / 2, -mainCamera.transform.position.z);
+                    itemGameObject = Instantiate(itemPrefab, cursorPosition, Quaternion.identity, itemsParent);
+                }
+                else
+                {
+                    Vector2 mousePosition = Mouse.current.position.ReadValue();
+                    Vector3 worldPosition = mainCamera.ScreenToWorldPoint(new Vector3(mousePosition.x + Settings.gridCellSize/2, mousePosition.y + Settings.gridCellSize / 2, -mainCamera.transform.position.z));
+                    itemGameObject = Instantiate(itemPrefab, worldPosition, Quaternion.identity, itemsParent);
+                }
 
-                GameObject itemGameObject = Instantiate(itemPrefab, worldPosition, Quaternion.identity, itemsParent);
                 Item item = itemGameObject.GetComponent<Item>();
                 item.ItemCode = itemDetails.itemCode;
 
