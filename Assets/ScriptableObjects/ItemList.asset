@@ -125,3 +125,15 @@ MonoBehaviour:
     canBeDropped: 1
     canBeEaten: 1
     canBeCarried: 1
+  - itemCode: 1009
+    itemType: 0
+    itemDescription: Parsnip Seed
+    itemSprite: {fileID: 21300000, guid: 18459af69216c45e6b7a776b23ac8265, type: 3}
+    itemLongDescription: Plant this to get parsnips after 4 days
+    itemUseGridRadius: 1
+    itemUseRadius: 0
+    isStartingItem: 0
+    canBePickedUp: 1
+    canBeDropped: 1
+    canBeEaten: 0
+    canBeCarried: 1
