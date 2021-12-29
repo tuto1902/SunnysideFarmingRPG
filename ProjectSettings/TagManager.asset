@@ -9,6 +9,7 @@ TagManager:
   - GamepadCursor
   - GroundDecoration1
   - GroundDecoration2
+  - CropsParent
   layers:
   - Default
   - TransparentFX

@@ -23,11 +23,11 @@ MonoBehaviour:
     - {fileID: 8940194991699560842, guid: 68b142dbc0d724d73bcda5a680f51342, type: 3}
     - {fileID: 8940194991699560842, guid: 68b142dbc0d724d73bcda5a680f51342, type: 3}
     growthSprite:
-    - {fileID: 21300000, guid: cd75a8966c16045f9973855dc97a703c, type: 3}
-    - {fileID: 21300000, guid: cd75a8966c16045f9973855dc97a703c, type: 3}
-    - {fileID: 21300000, guid: 9d25ac80ef95b48b7a4f03b7b877277d, type: 3}
-    - {fileID: 21300000, guid: 01740d641c3da4dae86245a07732b628, type: 3}
-    - {fileID: 21300000, guid: ad51d811e1abf4a13a4a3d71a6f355ed, type: 3}
+    - {fileID: 21300000, guid: 6c97e1b2205f049b094b4c05351f8a07, type: 3}
+    - {fileID: 21300000, guid: 6c97e1b2205f049b094b4c05351f8a07, type: 3}
+    - {fileID: 21300000, guid: 9407604ede09d46c39775aa15ad8dc97, type: 3}
+    - {fileID: 21300000, guid: 77f75965bffca4954a346d370db1d259, type: 3}
+    - {fileID: 21300000, guid: 22c8a37a19d7549acab732510c36427e, type: 3}
     seasons: 0000000001000000
     harvestedSprite: {fileID: 21300000, guid: e075923e3d21a41588e1903ed885c7db, type: 3}
     harvestedTransformItemCode: 0

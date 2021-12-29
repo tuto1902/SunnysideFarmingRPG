@@ -29,10 +29,10 @@ public static class Settings
     public const float gridCellSize = 1f;
     public static Vector2 cursorSize = Vector2.one;
 
-    public static float useToolAnimationPause = 0.5f;
-    public static float afterUseToolAnimationPause = 0.2f;
-    public static float liftToolAnimationPause = 0.4f;
-    public static float afterLiftToolAnimationPause = 0.4f;
+    public static float useToolAnimationPause = 0.6f;
+    public static float afterUseToolAnimationPause = 0.5f;
+    public static float liftToolAnimationPause = 0.6f;
+    public static float afterLiftToolAnimationPause = 0.3f;
  
     static Settings()
     {

@@ -376,7 +376,7 @@ public class Player : SingletonMonoBehaviour<Player>
             switch(itemDetails.itemType)
             {
                 case ItemType.Seed:
-                    ProcessPlayerClickInputSeed(itemDetails);
+                    ProcessPlayerClickInputSeed(gridPropertyDetails, itemDetails);
                     break;
                 case ItemType.Commodity:
                     ProcessPlayerClickInputCommodity(itemDetails);
@@ -417,12 +417,22 @@ public class Player : SingletonMonoBehaviour<Player>
         }
     }
 
-    private void ProcessPlayerClickInputSeed(ItemDetails itemDetails)
+    private void ProcessPlayerClickInputSeed(GridPropertyDetails gridPropertyDetails, ItemDetails itemDetails)
     {
-        if (itemDetails.canBeDropped && gridCursor.CursorPositionIsValid)
+        if (itemDetails.canBeDropped && gridCursor.CursorPositionIsValid && gridPropertyDetails.daysSinceDug > -1 && gridPropertyDetails.seedItemCode == -1)
         {
-            EventHandler.CallDropSelectedItemEvent();
+            PlantSeedAtCursor(gridPropertyDetails, itemDetails);
         }
+    }
+
+    private void PlantSeedAtCursor(GridPropertyDetails gridPropertyDetails, ItemDetails itemDetails)
+    {
+        gridPropertyDetails.seedItemCode = itemDetails.itemCode;
+        gridPropertyDetails.growthDays = 0;
+
+        GridPropertiesManager.Instance.DisplayPlantedCrop(gridPropertyDetails);
+
+        EventHandler.CallRemoveSelectedItemFromInventoryEvent();
     }
 
     private void ProcessPlayerClickInputTool(GridPropertyDetails gridPropertyDetails, ItemDetails itemDetails, Vector3Int playerDirection)
@@ -483,6 +493,7 @@ public class Player : SingletonMonoBehaviour<Player>
         PlayerFacingDirection();
 
         yield return useToolAnimationPause;
+        isUsingTool = false;
 
         if (gridPropertyDetails.daysSinceDug == -1)
         {
@@ -495,7 +506,6 @@ public class Player : SingletonMonoBehaviour<Player>
         yield return afterUseToolAnimationPause;
 
         playerInputDisabled = false;
-        isUsingTool = false;
     }
 
     private IEnumerator WaterGroundAtCursorCoroutine(Vector3Int playerDirection, GridPropertyDetails gridPropertyDetails)
@@ -525,6 +535,7 @@ public class Player : SingletonMonoBehaviour<Player>
         PlayerFacingDirection();
 
         yield return liftToolAnimationPause;
+        isUsingTool = false;
 
         if (gridPropertyDetails.daysSinceWatered == -1)
         {
@@ -537,6 +548,5 @@ public class Player : SingletonMonoBehaviour<Player>
         yield return afterLiftToolAnimationPause;
 
         playerInputDisabled = false;
-        isUsingTool = false;
     }
 }

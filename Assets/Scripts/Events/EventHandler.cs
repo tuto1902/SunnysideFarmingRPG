@@ -34,6 +34,7 @@ public static class EventHandler
     public static event Action AfterSceneLoadFadeInEvent;
 
     public static event Action DropSelectedItemEvent;
+    public static event Action RemoveSelectedItemFromInventoryEvent;
 
     public static void CallMovementEvent(
         float inputX,
@@ -154,6 +155,14 @@ public static class EventHandler
         if (DropSelectedItemEvent != null)
         {
             DropSelectedItemEvent();
+        }
+    }
+
+    public static void CallRemoveSelectedItemFromInventoryEvent()
+    {
+        if (RemoveSelectedItemFromInventoryEvent != null)
+        {
+            RemoveSelectedItemFromInventoryEvent();
         }
     }
 }
