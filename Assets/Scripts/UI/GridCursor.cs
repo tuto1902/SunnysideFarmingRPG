@@ -13,6 +13,7 @@ public class GridCursor : MonoBehaviour
     [SerializeField] private RectTransform cursorRectTransform;
     [SerializeField] private Sprite greenCursorSprite;
     [SerializeField] private Sprite redCursorSprite;
+    [SerializeField] private CropDetailsList cropDetailsList = null;
 
     private bool _cursorPositionIsValid = false;
     private int _itemUseGridRadius = 0;
@@ -188,6 +189,20 @@ public class GridCursor : MonoBehaviour
                     }
 
                     return true;
+                }
+                else if (gridPropertyDetails.seedItemCode != -1)
+                {
+                    CropDetails cropDetails = cropDetailsList.GetCropDetails(gridPropertyDetails.seedItemCode);
+                    if (cropDetails != null)
+                    {
+                        if (gridPropertyDetails.growthDays >= cropDetails.totalGrowthDays)
+                        {
+                            if (cropDetails.CanUseToolToHarvesCrop(itemDetails.itemCode))
+                            {
+                                return true;
+                            }
+                        }
+                    }
                 }
 
                 return false;

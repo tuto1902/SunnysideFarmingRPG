@@ -442,7 +442,7 @@ public class Player : SingletonMonoBehaviour<Player>
             case ItemType.DiggingTool:
                 if (gridCursor.CursorPositionIsValid)
                 {
-                    DigGroundAtCursor(gridPropertyDetails, playerDirection);
+                    DigGroundAtCursor(gridPropertyDetails, itemDetails, playerDirection);
                 }
                 break;
             case ItemType.WateringTool:
@@ -456,9 +456,9 @@ public class Player : SingletonMonoBehaviour<Player>
         }
     }
 
-    private void DigGroundAtCursor(GridPropertyDetails gridPropertyDetails, Vector3Int playerDirection)
+    private void DigGroundAtCursor(GridPropertyDetails gridPropertyDetails, ItemDetails equippedItemDetails, Vector3Int playerDirection)
     {
-        StartCoroutine(DigGroundAtCursorCoroutine(playerDirection, gridPropertyDetails));
+        StartCoroutine(DigGroundAtCursorCoroutine(playerDirection, equippedItemDetails, gridPropertyDetails));
     }
 
     private void WaterGroundAtCursor(GridPropertyDetails gridPropertyDetails, Vector3Int playerDirection)
@@ -466,7 +466,33 @@ public class Player : SingletonMonoBehaviour<Player>
         StartCoroutine(WaterGroundAtCursorCoroutine(playerDirection, gridPropertyDetails));
     }
 
-    private IEnumerator DigGroundAtCursorCoroutine(Vector3Int playerDirection, GridPropertyDetails gridPropertyDetails)
+    private void ProcessCropWithEquippedItem(Vector3Int playerDirection, ItemDetails itemDetails, GridPropertyDetails gridPropertyDetails)
+    {
+        if (playerDirection == Vector3Int.left)
+        {
+            this.playerDirection = PlayerDirection.Left;
+        }
+        else
+        {
+            this.playerDirection = PlayerDirection.Right;
+        }
+
+        PlayerFacingDirection();
+
+        Crop crop = GridPropertiesManager.Instance.GetCropObjectAtGridLocation(gridPropertyDetails);
+        
+        if (crop != null)
+        {
+            switch (itemDetails.itemType)
+            {
+                case ItemType.DiggingTool:
+                    crop.ProcessToolAction(itemDetails);
+                    break;
+            }
+        }
+    }
+
+    private IEnumerator DigGroundAtCursorCoroutine(Vector3Int playerDirection, ItemDetails equippedItemDetails, GridPropertyDetails gridPropertyDetails)
     {
         PlayerInputDisabled = true;
         isUsingTool = true;
@@ -494,10 +520,12 @@ public class Player : SingletonMonoBehaviour<Player>
 
         yield return useToolAnimationPause;
         isUsingTool = false;
-
         if (gridPropertyDetails.daysSinceDug == -1)
         {
             gridPropertyDetails.daysSinceDug = 0;
+        } else if (gridPropertyDetails.seedItemCode != -1)
+        {
+            ProcessCropWithEquippedItem(playerDirection, equippedItemDetails, gridPropertyDetails);
         }
 
         GridPropertiesManager.Instance.SetGridPropertyDetails(gridPropertyDetails.gridX, gridPropertyDetails.gridY, gridPropertyDetails);

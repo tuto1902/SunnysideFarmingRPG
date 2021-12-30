@@ -51,9 +51,8 @@ public class InventoryManager : SingletonMonoBehaviour<InventoryManager>
         return null;
     }
 
-    public void AddItem(InventoryLocation inventoryLocation, Item item)
+    public void AddItem(InventoryLocation inventoryLocation, int itemCode)
     {
-        int itemCode = item.ItemCode;
         List<InventoryItem> inventoryList = inventoryLists[(int)inventoryLocation];
         int itemPosition = FindItemInInventory(inventoryLocation, itemCode);
         if (itemPosition != -1)
@@ -70,7 +69,7 @@ public class InventoryManager : SingletonMonoBehaviour<InventoryManager>
 
     public void AddItem(InventoryLocation inventoryLocation, Item item, GameObject itemGameObject)
     {
-        AddItem(inventoryLocation, item);
+        AddItem(inventoryLocation, item.ItemCode);
         Destroy(itemGameObject);
     }
 

@@ -4162,6 +4162,7 @@ MonoBehaviour:
   cursorRectTransform: {fileID: 88445395}
   greenCursorSprite: {fileID: 21300000, guid: 717813a538a7749a580133bc0df7c9e3, type: 3}
   redCursorSprite: {fileID: 21300000, guid: a6148bf47ad2041c58ac6eea1774ab33, type: 3}
+  cropDetailsList: {fileID: 11400000, guid: e3aeb40dfb62c4a3aa9920c406e8b2e9, type: 2}
 --- !u!225 &2107352321
 CanvasGroup:
   m_ObjectHideFlags: 0

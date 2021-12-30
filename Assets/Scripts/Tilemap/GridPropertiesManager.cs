@@ -278,6 +278,36 @@ public class GridPropertiesManager : SingletonMonoBehaviour<GridPropertiesManage
         return GetGridPropertyDetails(gridX, gridY, gridPropertyDictionary);
     }
 
+    public Crop GetCropObjectAtGridLocation(GridPropertyDetails gridPropertyDetails)
+    {
+        Vector3 worldPosition = grid.CellToWorld(new Vector3Int(gridPropertyDetails.gridX, gridPropertyDetails.gridY, 0));
+        worldPosition.y += Settings.gridCellSize / 2;
+        worldPosition.y += Settings.gridCellSize / 2;
+        Collider2D[] collider2DArray = Physics2D.OverlapPointAll(worldPosition);
+        Crop crop = null;
+        for (int i = 0; i < collider2DArray.Length; i++)
+        {
+            crop = collider2DArray[i].gameObject.GetComponentInParent<Crop>();
+            if (crop != null && crop.cropGridPosition == new Vector2Int(gridPropertyDetails.gridX, gridPropertyDetails.gridY))
+            {
+                break;
+            }
+
+            crop = collider2DArray[i].gameObject.GetComponentInChildren<Crop>();
+            if (crop != null && crop.cropGridPosition == new Vector2Int(gridPropertyDetails.gridX, gridPropertyDetails.gridY))
+            {
+                break;
+            }
+        }
+
+        return crop;
+    }
+
+    public CropDetails GetCropDetails(int seedItemCode)
+    {
+        return cropDetailsList.GetCropDetails(seedItemCode);
+    }
+
     private void OnEnable()
     {
         Register();
