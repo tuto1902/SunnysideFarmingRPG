@@ -427,12 +427,15 @@ public class Player : SingletonMonoBehaviour<Player>
 
     private void PlantSeedAtCursor(GridPropertyDetails gridPropertyDetails, ItemDetails itemDetails)
     {
-        gridPropertyDetails.seedItemCode = itemDetails.itemCode;
-        gridPropertyDetails.growthDays = 0;
+        if (GridPropertiesManager.Instance.GetCropDetails(itemDetails.itemCode) != null)
+        {
+            gridPropertyDetails.seedItemCode = itemDetails.itemCode;
+            gridPropertyDetails.growthDays = 0;
 
-        GridPropertiesManager.Instance.DisplayPlantedCrop(gridPropertyDetails);
+            GridPropertiesManager.Instance.DisplayPlantedCrop(gridPropertyDetails);
 
-        EventHandler.CallRemoveSelectedItemFromInventoryEvent();
+            EventHandler.CallRemoveSelectedItemFromInventoryEvent();
+        }
     }
 
     private void ProcessPlayerClickInputTool(GridPropertyDetails gridPropertyDetails, ItemDetails itemDetails, Vector3Int playerDirection)
@@ -468,13 +471,17 @@ public class Player : SingletonMonoBehaviour<Player>
 
     private void ProcessCropWithEquippedItem(Vector3Int playerDirection, ItemDetails itemDetails, GridPropertyDetails gridPropertyDetails)
     {
+        bool isPickingLeft = false;
+        bool isPickingRight = false;
         if (playerDirection == Vector3Int.left)
         {
             this.playerDirection = PlayerDirection.Left;
+            isPickingLeft = true;
         }
         else
         {
             this.playerDirection = PlayerDirection.Right;
+            isPickingRight = true;
         }
 
         PlayerFacingDirection();
@@ -486,7 +493,7 @@ public class Player : SingletonMonoBehaviour<Player>
             switch (itemDetails.itemType)
             {
                 case ItemType.DiggingTool:
-                    crop.ProcessToolAction(itemDetails);
+                    crop.ProcessToolAction(itemDetails, isPickingLeft, isPickingRight);
                     break;
             }
         }

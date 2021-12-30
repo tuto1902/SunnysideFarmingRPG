@@ -33,7 +33,7 @@ MonoBehaviour:
     harvestedTransformItemCode: 0
     hideCropBeforeHarvestedAnimation: 1
     disableCropCollidersBeforeHarvestedAnimation: 0
-    isHarvestedAnimation: 0
+    isHarvestedAnimation: 1
     spawnCropProducedAtPlayerPosition: 1
     harvestToolItemCode: eb030000
     requiredHarvestActions: 01000000

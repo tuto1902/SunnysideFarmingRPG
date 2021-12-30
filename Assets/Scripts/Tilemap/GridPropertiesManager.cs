@@ -95,6 +95,11 @@ public class GridPropertiesManager : SingletonMonoBehaviour<GridPropertiesManage
         if (gridPropertyDetails.seedItemCode > -1)
         {
             CropDetails cropDetails = cropDetailsList.GetCropDetails(gridPropertyDetails.seedItemCode);
+            if (cropDetails == null)
+            {
+                return;
+            }
+
             GameObject cropPrefab;
             int growthStages = cropDetails.growthDays.Length;
             int currentGrowthStage = 0;
