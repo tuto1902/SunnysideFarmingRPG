@@ -195,7 +195,7 @@ public class GridCursor : MonoBehaviour
                     CropDetails cropDetails = cropDetailsList.GetCropDetails(gridPropertyDetails.seedItemCode);
                     if (cropDetails != null)
                     {
-                        if (gridPropertyDetails.growthDays >= cropDetails.totalGrowthDays)
+                        if (gridPropertyDetails.growthDays >= cropDetails.growthDays[cropDetails.growthDays.Length - 1])
                         {
                             if (cropDetails.CanUseToolToHarvesCrop(itemDetails.itemCode))
                             {

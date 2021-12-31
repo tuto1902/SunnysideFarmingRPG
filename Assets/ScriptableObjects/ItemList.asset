@@ -129,7 +129,7 @@ MonoBehaviour:
     itemType: 0
     itemDescription: Parsnip Seed
     itemSprite: {fileID: 21300000, guid: 18459af69216c45e6b7a776b23ac8265, type: 3}
-    itemLongDescription: Plant this to get parsnips after 4 days
+    itemLongDescription: Plant this to get parsnips
     itemUseGridRadius: 1
     itemUseRadius: 0
     isStartingItem: 0
@@ -137,3 +137,75 @@ MonoBehaviour:
     canBeDropped: 1
     canBeEaten: 0
     canBeCarried: 1
+  - itemCode: 1010
+    itemType: 0
+    itemDescription: Carrot Seed
+    itemSprite: {fileID: 21300000, guid: 0f16f2929ad6b49b7b3b474b96453851, type: 3}
+    itemLongDescription: Plant this to get carrots
+    itemUseGridRadius: 1
+    itemUseRadius: 0
+    isStartingItem: 0
+    canBePickedUp: 1
+    canBeDropped: 1
+    canBeEaten: 1
+    canBeCarried: 1
+  - itemCode: 1011
+    itemType: 1
+    itemDescription: Carrot
+    itemSprite: {fileID: 21300000, guid: 69610632f60fb4ad18cb670e7a598058, type: 3}
+    itemLongDescription: Sell it for coins. You can also eat it to recover some health.
+    itemUseGridRadius: 1
+    itemUseRadius: 0
+    isStartingItem: 0
+    canBePickedUp: 1
+    canBeDropped: 1
+    canBeEaten: 1
+    canBeCarried: 1
+  - itemCode: 1012
+    itemType: 0
+    itemDescription: Beet Root
+    itemSprite: {fileID: 21300000, guid: 5efd1c8d942e94add8144c96597809f7, type: 3}
+    itemLongDescription: Plant this to get beet root
+    itemUseGridRadius: 1
+    itemUseRadius: 0
+    isStartingItem: 0
+    canBePickedUp: 1
+    canBeDropped: 1
+    canBeEaten: 1
+    canBeCarried: 1
+  - itemCode: 1013
+    itemType: 1
+    itemDescription: Beet Root
+    itemSprite: {fileID: 21300000, guid: d5a9527b452a2401bad8639d21172176, type: 3}
+    itemLongDescription: Sell it for coins.
+    itemUseGridRadius: 1
+    itemUseRadius: 0
+    isStartingItem: 0
+    canBePickedUp: 1
+    canBeDropped: 1
+    canBeEaten: 1
+    canBeCarried: 1
+  - itemCode: 1014
+    itemType: 0
+    itemDescription: Acorn
+    itemSprite: {fileID: 21300000, guid: 3c11edeaf75e5487a94e18e850209a6d, type: 3}
+    itemLongDescription: Plant this to get a tree
+    itemUseGridRadius: 1
+    itemUseRadius: 0
+    isStartingItem: 0
+    canBePickedUp: 1
+    canBeDropped: 1
+    canBeEaten: 0
+    canBeCarried: 1
+  - itemCode: 1015
+    itemType: 11
+    itemDescription: Tree Stump
+    itemSprite: {fileID: 21300000, guid: 9530289f01ad449a7ad6e3fc2319c421, type: 3}
+    itemLongDescription: The remains of a chopped down tree
+    itemUseGridRadius: 0
+    itemUseRadius: 0
+    isStartingItem: 0
+    canBePickedUp: 0
+    canBeDropped: 0
+    canBeEaten: 0
+    canBeCarried: 0
