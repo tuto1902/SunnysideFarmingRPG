@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b05219f98e0564f0a9a087c62b15d020, type: 3}
   m_Name: longHairToolNone
   m_EditorClassIdentifier: 
-  animationClip: {fileID: 7400000, guid: 127376222d1ff43ba9870e5a4ab16e0c, type: 2}
+  animationClip: {fileID: 7400000, guid: 7663f4a64c64341b79d6a1b953b83b3c, type: 2}
   animationName: 5
   characterPart: 1
   partVariantType: 7

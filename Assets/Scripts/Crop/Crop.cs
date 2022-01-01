@@ -96,7 +96,14 @@ public class Crop : MonoBehaviour
 
         if (cropDetails.isHarvestedAnimation && animator != null)
         {
-            StartCoroutine(ProcessHarvestActionsAfterAnimation(cropDetails, gridPropertyDetails, animator));
+            if (cropDetails.spawnCropBeforeHarvestedAnimation)
+            {
+                StartCoroutine(ProcessHarvestActionsBeforeAnimation(cropDetails, gridPropertyDetails, animator));
+            }
+            else
+            {
+                StartCoroutine(ProcessHarvestActionsAfterAnimation(cropDetails, gridPropertyDetails, animator));
+            }
         }
         else
         {
@@ -112,6 +119,16 @@ public class Crop : MonoBehaviour
             yield return null;
         }
         HarvestActions(cropDetails, gridPropertyDetails);
+    }
+
+    private IEnumerator ProcessHarvestActionsBeforeAnimation(CropDetails cropDetails, GridPropertyDetails gridPropertyDetails, Animator animator)
+    {
+        SpawnHarvestedItems(cropDetails);
+        while (!animator.GetCurrentAnimatorStateInfo(0).IsName("Harvested"))
+        {
+            yield return null;
+        }
+        Destroy(gameObject);
     }
 
     private void HarvestActions(CropDetails cropDetails, GridPropertyDetails gridPropertyDetails)

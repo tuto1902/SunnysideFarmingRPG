@@ -13,6 +13,7 @@ public class CropDetails
     public bool hideCropBeforeHarvestedAnimation;
     public bool disableCropCollidersBeforeHarvestedAnimation;
     public bool isHarvestedAnimation;
+    public bool spawnCropBeforeHarvestedAnimation;
     public bool spawnCropProducedAtPlayerPosition;
     public int[] harvestToolItemCode;
     public int[] requiredHarvestActions;

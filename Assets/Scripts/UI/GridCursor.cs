@@ -139,7 +139,8 @@ public class GridCursor : MonoBehaviour
                     break;
                 case ItemType.WateringTool:
                 case ItemType.DiggingTool:
-                    if (!IsCursorValidForTool(gridPropertyDetails, itemDetails))
+                case ItemType.ChoppingTool:
+                    if (IsCursorValidForTool(gridPropertyDetails, itemDetails) == false)
                     {
                         SetCursorToInvalid();
                         return;
@@ -212,6 +213,22 @@ public class GridCursor : MonoBehaviour
                     return true;
                 }
 
+                return false;
+            case ItemType.ChoppingTool:
+                if (gridPropertyDetails.seedItemCode != -1)
+                {
+                    CropDetails cropDetails = cropDetailsList.GetCropDetails(gridPropertyDetails.seedItemCode);
+                    if (cropDetails != null)
+                    {
+                        if (gridPropertyDetails.growthDays >= cropDetails.growthDays[cropDetails.growthDays.Length - 1])
+                        {
+                            if (cropDetails.CanUseToolToHarvesCrop(itemDetails.itemCode))
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
                 return false;
             default:
                 return false;

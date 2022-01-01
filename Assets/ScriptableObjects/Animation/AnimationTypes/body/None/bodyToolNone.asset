@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b05219f98e0564f0a9a087c62b15d020, type: 3}
   m_Name: bodyToolNone
   m_EditorClassIdentifier: 
-  animationClip: {fileID: 7400000, guid: db948ce82b00d46e58c7bbfef50feb22, type: 2}
+  animationClip: {fileID: 7400000, guid: f584c7e49486c4f8b8f07c894f2fec9f, type: 2}
   animationName: 1
   characterPart: 0
   partVariantType: 7

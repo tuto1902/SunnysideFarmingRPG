@@ -33,6 +33,7 @@ MonoBehaviour:
     hideCropBeforeHarvestedAnimation: 1
     disableCropCollidersBeforeHarvestedAnimation: 0
     isHarvestedAnimation: 1
+    spawnCropBeforeHarvestedAnimation: 0
     spawnCropProducedAtPlayerPosition: 1
     harvestToolItemCode: eb030000
     requiredHarvestActions: 01000000
@@ -60,6 +61,7 @@ MonoBehaviour:
     hideCropBeforeHarvestedAnimation: 1
     disableCropCollidersBeforeHarvestedAnimation: 0
     isHarvestedAnimation: 1
+    spawnCropBeforeHarvestedAnimation: 0
     spawnCropProducedAtPlayerPosition: 1
     harvestToolItemCode: eb030000
     requiredHarvestActions: 01000000
@@ -87,6 +89,7 @@ MonoBehaviour:
     hideCropBeforeHarvestedAnimation: 1
     disableCropCollidersBeforeHarvestedAnimation: 0
     isHarvestedAnimation: 1
+    spawnCropBeforeHarvestedAnimation: 0
     spawnCropProducedAtPlayerPosition: 1
     harvestToolItemCode: eb030000
     requiredHarvestActions: 01000000
@@ -110,6 +113,7 @@ MonoBehaviour:
     hideCropBeforeHarvestedAnimation: 0
     disableCropCollidersBeforeHarvestedAnimation: 0
     isHarvestedAnimation: 1
+    spawnCropBeforeHarvestedAnimation: 1
     spawnCropProducedAtPlayerPosition: 0
     harvestToolItemCode: e9030000
     requiredHarvestActions: 06000000
