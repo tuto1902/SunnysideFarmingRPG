@@ -354,6 +354,11 @@ public class Player : SingletonMonoBehaviour<Player>
             return;
         }
 
+        if (isUsingTool)
+        {
+            return;
+        }
+
         if (gridCursor.CursorIsEnabled)
         {
             Vector3Int cursorGridPosition = gridCursor.GetGridPositionForCursor();

@@ -198,7 +198,7 @@ MonoBehaviour:
     canBeEaten: 0
     canBeCarried: 1
   - itemCode: 1015
-    itemType: 11
+    itemType: 0
     itemDescription: Tree Stump
     itemSprite: {fileID: 21300000, guid: 9530289f01ad449a7ad6e3fc2319c421, type: 3}
     itemLongDescription: The remains of a chopped down tree
