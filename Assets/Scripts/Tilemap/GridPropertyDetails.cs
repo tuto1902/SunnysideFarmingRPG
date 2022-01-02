@@ -14,6 +14,7 @@ public class GridPropertyDetails
     public int seedItemCode = -1;
     public int growthDays = -1;
     public int daysSinceLastHarvest = -1;
+    public bool showGroundTile = true;
 
     public GridPropertyDetails()
     {

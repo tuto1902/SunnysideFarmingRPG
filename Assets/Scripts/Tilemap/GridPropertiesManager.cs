@@ -11,6 +11,7 @@ public class GridPropertiesManager : SingletonMonoBehaviour<GridPropertiesManage
     private Tilemap groundDecoration2;
     private Grid grid;
     private Dictionary<string, GridPropertyDetails> gridPropertyDictionary;
+    private bool isFirstTimeSceneLoaded = true;
     [SerializeField] private GridProperties[] gridPropertiesArray = null;
     [SerializeField] private Tile[] dugGround = null;
     [SerializeField] private Tile[] wateredGround = null;
@@ -120,16 +121,19 @@ public class GridPropertiesManager : SingletonMonoBehaviour<GridPropertiesManage
             cropInstance.GetComponentInChildren<SpriteRenderer>().sprite = growthSprite;
             cropInstance.transform.SetParent(cropParentTransform);
             cropInstance.GetComponent<Crop>().cropGridPosition = new Vector2Int(gridPropertyDetails.gridX, gridPropertyDetails.gridY);
-            Tile groundTile;
-            if (gridPropertyDetails.daysSinceWatered > -1)
+            if (gridPropertyDetails.showGroundTile)
             {
-                groundTile = SetPlantedWateredCropTile(gridPropertyDetails.gridX, gridPropertyDetails.gridY);
+                Tile groundTile;
+                if (gridPropertyDetails.daysSinceWatered > -1)
+                {
+                    groundTile = SetPlantedWateredCropTile(gridPropertyDetails.gridX, gridPropertyDetails.gridY);
+                }
+                else
+                {
+                    groundTile = SetPlantedCropTile(gridPropertyDetails.gridX, gridPropertyDetails.gridY);
+                }
+                groundDecoration1.SetTile(new Vector3Int(gridPropertyDetails.gridX, gridPropertyDetails.gridY, 0), groundTile);
             }
-            else
-            {
-                groundTile = SetPlantedCropTile(gridPropertyDetails.gridX, gridPropertyDetails.gridY);
-            }
-            groundDecoration1.SetTile(new Vector3Int(gridPropertyDetails.gridX, gridPropertyDetails.gridY, 0), groundTile);
         }
     }
 
@@ -243,6 +247,9 @@ public class GridPropertiesManager : SingletonMonoBehaviour<GridPropertiesManage
             {
                 this.gridPropertyDictionary = gridPropertyDetailsDictionary;
             }
+
+            sceneSave.boolDictionary = new Dictionary<string, bool>();
+            sceneSave.boolDictionary.Add("isFirstTimeSceneLoaded", true);
 
             GameObjectSave.sceneData.Add(gridProperties.sceneName.ToString(), sceneSave);
         }
@@ -385,13 +392,29 @@ public class GridPropertiesManager : SingletonMonoBehaviour<GridPropertiesManage
             {
                 gridPropertyDictionary = sceneSave.gridPropertyDetailsDictionary;
             }
+
+            if (sceneSave.boolDictionary != null && sceneSave.boolDictionary.TryGetValue("isFirstTimeSceneLoaded", out bool storedIsFirstTimeSceneLoaded))
+            {
+                isFirstTimeSceneLoaded = storedIsFirstTimeSceneLoaded;
+            }
+
+            if (isFirstTimeSceneLoaded)
+            {
+                EventHandler.CallInstantiateCropPrefabsEvent();
+            }
+
+            if (gridPropertyDictionary.Count > 0)
+            {
+                ClearDisplayGridPropertyDetails();
+                DisplayGridPropertyDetails();
+            }
+
+            if (isFirstTimeSceneLoaded)
+            {
+                isFirstTimeSceneLoaded = false;
+            }
         }
 
-        if (gridPropertyDictionary.Count > 0)
-        {
-            ClearDisplayGridPropertyDetails();
-            DisplayGridPropertyDetails();
-        }
     }
 
     public void StoreScene(string sceneName)
@@ -400,6 +423,8 @@ public class GridPropertiesManager : SingletonMonoBehaviour<GridPropertiesManage
         SceneSave sceneSave = new SceneSave();
 
         sceneSave.gridPropertyDetailsDictionary = gridPropertyDictionary;
+        sceneSave.boolDictionary = new Dictionary<string, bool>();
+        sceneSave.boolDictionary.Add("isFirstTimeSceneLoaded", isFirstTimeSceneLoaded);
         GameObjectSave.sceneData.Add(sceneName, sceneSave);
     }
 }

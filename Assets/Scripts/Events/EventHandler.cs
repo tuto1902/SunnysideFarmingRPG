@@ -36,6 +36,8 @@ public static class EventHandler
     public static event Action DropSelectedItemEvent;
     public static event Action RemoveSelectedItemFromInventoryEvent;
 
+    public static event Action InstantiateCropPrefabsEvent;
+
     public static void CallMovementEvent(
         float inputX,
         float inputY,
@@ -163,6 +165,14 @@ public static class EventHandler
         if (RemoveSelectedItemFromInventoryEvent != null)
         {
             RemoveSelectedItemFromInventoryEvent();
+        }
+    }
+
+    public static void CallInstantiateCropPrefabsEvent()
+    {
+        if (InstantiateCropPrefabsEvent != null)
+        {
+            InstantiateCropPrefabsEvent();
         }
     }
 }
