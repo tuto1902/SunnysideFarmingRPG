@@ -291,7 +291,7 @@ public class GridPropertiesManager : SingletonMonoBehaviour<GridPropertiesManage
     public Crop GetCropObjectAtGridLocation(GridPropertyDetails gridPropertyDetails)
     {
         Vector3 worldPosition = grid.CellToWorld(new Vector3Int(gridPropertyDetails.gridX, gridPropertyDetails.gridY, 0));
-        worldPosition.y += Settings.gridCellSize / 2;
+        worldPosition.x += Settings.gridCellSize / 2;
         worldPosition.y += Settings.gridCellSize / 2;
         Collider2D[] collider2DArray = Physics2D.OverlapPointAll(worldPosition);
         Crop crop = null;

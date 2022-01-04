@@ -209,3 +209,27 @@ MonoBehaviour:
     canBeDropped: 0
     canBeEaten: 0
     canBeCarried: 0
+  - itemCode: 1016
+    itemType: 0
+    itemDescription: Rock
+    itemSprite: {fileID: 21300000, guid: 21a912e8ef2fb4a07a03e7b0583fc845, type: 3}
+    itemLongDescription: A rock
+    itemUseGridRadius: 0
+    itemUseRadius: 0
+    isStartingItem: 0
+    canBePickedUp: 0
+    canBeDropped: 0
+    canBeEaten: 0
+    canBeCarried: 0
+  - itemCode: 1017
+    itemType: 1
+    itemDescription: Stone
+    itemSprite: {fileID: 21300000, guid: 2706cf56bebb34cf5aadccd44ec47d21, type: 3}
+    itemLongDescription: A stone harvested from a rock
+    itemUseGridRadius: 0
+    itemUseRadius: 0
+    isStartingItem: 0
+    canBePickedUp: 1
+    canBeDropped: 1
+    canBeEaten: 0
+    canBeCarried: 0

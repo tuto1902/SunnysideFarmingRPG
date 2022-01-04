@@ -141,3 +141,23 @@ MonoBehaviour:
     cropProducesMinQuantity: 02000000
     cropProducesMaxQuantity: 03000000
     daysToRegrow: -1
+  - seedItemCode: 1016
+    growthDays: 00000000
+    growthPrefab:
+    - {fileID: 3943588795677446679, guid: 61c59aac0111042a899d5e71d5d7eb8a, type: 3}
+    growthSprite:
+    - {fileID: 21300000, guid: 21a912e8ef2fb4a07a03e7b0583fc845, type: 3}
+    seasons: 00000000010000000200000003000000
+    harvestedSprite: {fileID: 21300000, guid: 2706cf56bebb34cf5aadccd44ec47d21, type: 3}
+    harvestedTransformItemCode: 0
+    hideCropBeforeHarvestedAnimation: 0
+    disableCropCollidersBeforeHarvestedAnimation: 0
+    isHarvestedAnimation: 0
+    spawnCropBeforeHarvestedAnimation: 0
+    spawnCropProducedAtPlayerPosition: 0
+    harvestToolItemCode: ea030000
+    requiredHarvestActions: 03000000
+    cropProducedItemCode: f9030000
+    cropProducesMinQuantity: 02000000
+    cropProducesMaxQuantity: 03000000
+    daysToRegrow: -1

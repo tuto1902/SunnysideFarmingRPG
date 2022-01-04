@@ -389,6 +389,7 @@ public class Player : SingletonMonoBehaviour<Player>
                 case ItemType.DiggingTool:
                 case ItemType.WateringTool:
                 case ItemType.ChoppingTool:
+                case ItemType.BreakingTool:
                     ProcessPlayerClickInputTool(gridPropertyDetails, itemDetails, playerDirection);
                     break;
                 case ItemType.none:
@@ -466,6 +467,12 @@ public class Player : SingletonMonoBehaviour<Player>
                     ChopInPlayerDirection(gridPropertyDetails, itemDetails, playerDirection);
                 }
                 break;
+            case ItemType.BreakingTool:
+                if (gridCursor.CursorPositionIsValid)
+                {
+                    BreakInPlayerDirection(gridPropertyDetails, itemDetails, playerDirection);
+                }
+                break;
             default:
                 break;
         }
@@ -506,6 +513,7 @@ public class Player : SingletonMonoBehaviour<Player>
             {
                 case ItemType.ChoppingTool:
                 case ItemType.DiggingTool:
+                case ItemType.BreakingTool:
                     crop.ProcessToolAction(itemDetails, isUsingToolLeft, isUsingToolRight);
                     break;
             }
@@ -611,6 +619,48 @@ public class Player : SingletonMonoBehaviour<Player>
         toolCharacterAttribute.partVariantType = PartVariantType.Axe;
         bodyCharacterAttribute.partVariantType = PartVariantType.Axe;
         hairCharacterAttribute.partVariantType = PartVariantType.Axe;
+        characterAttributeCustomisationList.Clear();
+        characterAttributeCustomisationList.Add(toolCharacterAttribute);
+        characterAttributeCustomisationList.Add(bodyCharacterAttribute);
+        characterAttributeCustomisationList.Add(hairCharacterAttribute);
+
+        animationOverrides.ApplyCharacterCustomisationParameters(characterAttributeCustomisationList);
+
+        if (playerDirection == Vector3Int.left)
+        {
+            this.playerDirection = PlayerDirection.Left;
+        }
+        else
+        {
+            this.playerDirection = PlayerDirection.Right;
+        }
+
+        PlayerFacingDirection();
+
+        yield return useToolAnimationPause;
+
+        ProcessCropWithEquippedItem(playerDirection, equippedItemDetails, gridPropertyDetails);
+
+        isUsingTool = false;
+
+        yield return afterUseToolAnimationPause;
+
+        playerInputDisabled = false;
+    }
+
+    private void BreakInPlayerDirection(GridPropertyDetails gridPropertyDetails, ItemDetails equippedItemDetails, Vector3Int playerDirection)
+    {
+        StartCoroutine(BreakInPlayerDirectionCoroutine(gridPropertyDetails, equippedItemDetails, playerDirection));
+    }
+
+    private IEnumerator BreakInPlayerDirectionCoroutine(GridPropertyDetails gridPropertyDetails, ItemDetails equippedItemDetails, Vector3Int playerDirection)
+    {
+        PlayerInputDisabled = true;
+        isUsingTool = true;
+
+        toolCharacterAttribute.partVariantType = PartVariantType.Minning;
+        bodyCharacterAttribute.partVariantType = PartVariantType.Minning;
+        hairCharacterAttribute.partVariantType = PartVariantType.Minning;
         characterAttributeCustomisationList.Clear();
         characterAttributeCustomisationList.Add(toolCharacterAttribute);
         characterAttributeCustomisationList.Add(bodyCharacterAttribute);
