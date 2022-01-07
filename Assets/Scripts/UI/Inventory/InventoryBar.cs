@@ -37,6 +37,28 @@ public class InventoryBar : MonoBehaviour
         inputManager.itemSelectRight -= ItemSelectRight;
     }
 
+    public void DestroyCurrentlyDraggedItems()
+    {
+        for (int i = 0; i < inventorySlots.Length; i++)
+        {
+            if (inventorySlots[i].draggedItem != null)
+            {
+                Destroy(inventorySlots[i].draggedItem);
+            }
+        }
+    }
+
+    public void ClearCurrentlySelectedItems()
+    {
+        for (int i = 0; i < inventorySlots.Length; i++)
+        {
+            if (inventorySlots[i].isSelected)
+            {
+                inventorySlots[i].ClearSelectedItem();
+            }
+        }
+    }
+
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();

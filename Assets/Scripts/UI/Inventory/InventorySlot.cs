@@ -10,6 +10,7 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public Image inventorySlotHighlight;
     public Image inventorySlotImage;
     public TextMeshProUGUI textMeshProUGUI;
+    public GameObject draggedItem;
 
     [HideInInspector] public bool isSelected = false;
     [HideInInspector] public ItemDetails itemDetails;
@@ -17,7 +18,6 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     private Camera mainCamera;
     private Transform itemsParent;
-    private GameObject draggedItem;
     private string gamepadScheme = "Gamepad";
     private Canvas parentCanvas;
     private GridCursor gridCursor = null;

@@ -6,6 +6,7 @@ using System;
 [ExecuteAlways]
 public class TilemapGridProperties : MonoBehaviour
 {
+#if UNITY_EDITOR
     private Tilemap tilemap;
     private Grid grid;
 
@@ -62,4 +63,5 @@ public class TilemapGridProperties : MonoBehaviour
             }
         }
     }
+#endif
 }
