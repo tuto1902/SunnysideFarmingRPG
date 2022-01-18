@@ -45,7 +45,7 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
         }
     }
 
-    private void EnablePauseMenu()
+    public void EnablePauseMenu()
     {
         inventoryBar.DestroyCurrentlyDraggedItems();
         inventoryBar.ClearCurrentlySelectedItems();
@@ -59,7 +59,7 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
         HighlightButtonForSelectedTab();
     }
 
-    private void DisablePauseMenu()
+    public void DisablePauseMenu()
     {
         pauseMenuInventoryManagement.DestroyCurrentlyDraggedItems();
         PauseMenuActive = false;

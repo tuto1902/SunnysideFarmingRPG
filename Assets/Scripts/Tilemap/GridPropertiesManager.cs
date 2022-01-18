@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(GenerateGUID))]
@@ -426,5 +427,20 @@ public class GridPropertiesManager : SingletonMonoBehaviour<GridPropertiesManage
         sceneSave.boolDictionary = new Dictionary<string, bool>();
         sceneSave.boolDictionary.Add("isFirstTimeSceneLoaded", isFirstTimeSceneLoaded);
         GameObjectSave.sceneData.Add(sceneName, sceneSave);
+    }
+
+    public GameObjectSave SaveGame()
+    {
+        StoreScene(SceneManager.GetActiveScene().name);
+        return GameObjectSave;
+    }
+
+    public void LoadGame(GameSave gameSave)
+    {
+        if (gameSave.gameObjectData.TryGetValue(UniqueID, out GameObjectSave gameObjectSave))
+        {
+            GameObjectSave = gameObjectSave;
+            RestoreScene(SceneManager.GetActiveScene().name);
+        }
     }
 }

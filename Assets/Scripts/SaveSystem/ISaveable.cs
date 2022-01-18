@@ -9,4 +9,6 @@ public interface ISaveable
     void Deregister();
     void StoreScene(string sceneName);
     void RestoreScene(string sceneName);
+    GameObjectSave SaveGame();
+    void LoadGame(GameSave gameSave);
 }
