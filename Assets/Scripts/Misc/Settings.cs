@@ -2,6 +2,9 @@ using UnityEngine;
 
 public static class Settings
 {
+    public const string PersistentScene = "PersistentScene";
+
+
     public static int isIdle;
     public static int isWalking;
     public static int isRunning;

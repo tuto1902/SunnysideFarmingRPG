@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using System;
+using UnityEngine.SceneManagement;
 
-public class Player : SingletonMonoBehaviour<Player>
+public class Player : SingletonMonoBehaviour<Player>, ISaveable
 {
     [SerializeField] private InputManager inputManager;
     [SerializeField] private PlayerMovementSettings playerMovementSettings;
@@ -40,6 +42,8 @@ public class Player : SingletonMonoBehaviour<Player>
     private bool jumpTrigger;
     private bool hurtTrigger;
     private bool playerInputDisabled = false;
+    private string _uniqueID;
+    private GameObjectSave _gameObjectSave;
 
     public bool PlayerInputDisabled
     {
@@ -50,6 +54,19 @@ public class Player : SingletonMonoBehaviour<Player>
     public PlayerDirection PlayerDirection
     {
         get => playerDirection;
+        set => playerDirection = value;
+    }
+
+    public string UniqueID
+    {
+        get => _uniqueID;
+        set => _uniqueID = value;
+    }
+
+    public GameObjectSave GameObjectSave
+    {
+        get => _gameObjectSave;
+        set => _gameObjectSave = value;
     }
 
     protected override void Awake()
@@ -71,6 +88,23 @@ public class Player : SingletonMonoBehaviour<Player>
         inputManager.toggleRunEvent += InputManager_OnToggleRun;
         inputManager.playerClick += InputManager_OnPlayerClick;
         inputManager.useToolEvent += InputManager_OnUseTool;
+
+        UniqueID = GetComponent<GenerateGUID>().GUID;
+        GameObjectSave = new GameObjectSave();
+    }
+
+    private void OnEnable()
+    {
+        Register();
+        EventHandler.BeforeSceneUnloadEvent += DisablePlayerInputAndResetMovement;
+        EventHandler.AfterSceneLoadFadeInEvent += EnablePlayerInput;
+    }
+
+    private void OnDisable()
+    {
+        Deregister();
+        EventHandler.BeforeSceneUnloadEvent -= DisablePlayerInputAndResetMovement;
+        EventHandler.AfterSceneLoadFadeInEvent -= EnablePlayerInput;
     }
 
     private void OnDestroy()
@@ -688,5 +722,74 @@ public class Player : SingletonMonoBehaviour<Player>
         yield return afterUseToolAnimationPause;
 
         playerInputDisabled = false;
+    }
+
+    public void Deregister()
+    {
+        SaveLoadManager.Instance.saveableObjectList.Remove(this);
+    }
+
+    public void Register()
+    {
+        SaveLoadManager.Instance.saveableObjectList.Add(this);
+    }
+
+    public void StoreScene(string sceneName)
+    {
+        // N/A
+    }
+
+    public void RestoreScene(string sceneName)
+    {
+        // N/A
+    }
+
+    public GameObjectSave SaveGame()
+    {
+        GameObjectSave.sceneData.Remove(Settings.PersistentScene);
+        SceneSave sceneSave = new SceneSave();
+        sceneSave.stringDictionary = new Dictionary<string, string>();
+        sceneSave.vector3Dictionary = new Dictionary<string, Vector3Serializable>();
+
+        Vector3Serializable vector3Serializable = new Vector3Serializable(transform.position.x, transform.position.y, transform.position.z);
+
+        sceneSave.vector3Dictionary.Add("playerPosition", vector3Serializable);
+        sceneSave.stringDictionary.Add("currentScene", SceneManager.GetActiveScene().name);
+        sceneSave.stringDictionary.Add("playerDirection", playerDirection.ToString());
+
+        GameObjectSave.sceneData.Add(Settings.PersistentScene, sceneSave);
+
+        return GameObjectSave;
+    }
+
+    public void LoadGame(GameSave gameSave)
+    {
+        if (gameSave.gameObjectData.TryGetValue(UniqueID, out GameObjectSave gameObjectSave))
+        {
+            if (gameObjectSave.sceneData.TryGetValue(Settings.PersistentScene, out SceneSave sceneSave))
+            {
+                if (sceneSave.vector3Dictionary != null && sceneSave.vector3Dictionary.TryGetValue("playerPosition", out Vector3Serializable playerPosition))
+                {
+                    transform.position = new Vector3(playerPosition.x, playerPosition.y, playerPosition.z);
+                }
+
+                if (sceneSave.stringDictionary != null)
+                {
+                    if (sceneSave.stringDictionary.TryGetValue("currentScene", out string currentScene))
+                    {
+                        SceneControllerManager.Instance.FadeAndLoadScene(currentScene, transform.position);
+                    }
+                    if (sceneSave.stringDictionary.TryGetValue("playerDirection", out string playerDirection))
+                    {
+                        bool playerDirectionFound = Enum.TryParse<PlayerDirection>(playerDirection, out PlayerDirection storedPlayerDirection);
+                        if (playerDirectionFound)
+                        {
+                            PlayerDirection = storedPlayerDirection;
+                            PlayerFacingDirection();
+                        }
+                    }
+                }
+            }
+        }
     }
 }
